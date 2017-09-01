@@ -3,13 +3,14 @@ import mysql.connector
 from random import randint
 from sklearn import tree
 import DecisionTreeModel
+from GBDTModel import GBDTModel
 
 
 class DecisionTreeRunner:
     def __init__(self):
         pass
 
-    def get_training_and_test_data(self):
+    def get_training_and_test_data(self, prediction_sym):
         cnx = mysql.connector.connect(user='root', database='stock_data', password='root')
         cursor = cnx.cursor()
 
@@ -44,7 +45,7 @@ class DecisionTreeRunner:
             final_one_yr_target_price = final_previous_close if one_yr_target_price.find('N') > -1 \
                 else float(one_yr_target_price)
 
-            if (randint(0, 100)%5 == 0):
+            if (randint(0, 100)%5 == 0 or symbol == prediction_symbol):
                 test_data_point = [final_previous_close, final_dividend_yield, final_dividend_per_share,
                                    final_f2_wk_high, final_f2_wk_low, final_eps,final_book_value, final_price_per_sales,
                                    final_price_per_book,final_pe, final_peg, final_short_ratio]
@@ -68,13 +69,15 @@ class DecisionTreeRunner:
 
 
 if __name__ == "__main__":
-    dc = DecisionTreeRunner()
-    [ts, cl, td, tl, tss] = dc.get_training_and_test_data()
+    prediction_symbol = "WFC"
 
-    dtm = DecisionTreeModel.StockDecisionTree()
+    dc = DecisionTreeRunner()
+    [ts, cl, td, tl, tss] = dc.get_training_and_test_data(prediction_symbol)
+
+    dtm = GBDTModel()
     dtm.trainModel(ts, cl)
 
-    #print dtm.model.feature_importances_
+    print dtm.model.feature_importances_
     #print dtm.model.feature_importances_
     # print dtm.model.max_features_
     # print dtm.model.n_features_
@@ -85,7 +88,7 @@ if __name__ == "__main__":
     #print dtm.model.decision_path(td)
 
     print "Predicted test label values"
-    print dtm.predict_symbol("PCLN")
+    print dtm.predict_symbol(prediction_symbol)
 
 
 
