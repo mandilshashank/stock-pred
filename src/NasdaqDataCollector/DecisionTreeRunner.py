@@ -4,6 +4,7 @@ from random import randint
 from sklearn import tree
 import DecisionTreeModel
 from GBDTModel import GBDTModel
+from RandomForestModel import RandomForestModel
 
 
 class DecisionTreeRunner:
@@ -74,7 +75,7 @@ if __name__ == "__main__":
     dc = DecisionTreeRunner()
     [ts, cl, td, tl, tss] = dc.get_training_and_test_data(prediction_symbol)
 
-    dtm = GBDTModel()
+    dtm = RandomForestModel()
     dtm.trainModel(ts, cl)
 
     print dtm.model.feature_importances_
