@@ -1,9 +1,7 @@
-from sklearn import tree
 import datetime
 import mysql.connector
-from random import randint
 from sklearn import tree
-import DecisionTreeModel
+from sklearn.metrics import mean_squared_error
 
 
 class StockDecisionTree:
@@ -15,7 +13,10 @@ class StockDecisionTree:
         self.model = clf.fit(training_samples, class_labels)
 
     def predict(self, test_data):
-        return self.model.predict(test_data)
+        if self.model != "":
+            return self.model.predict(test_data)
+        else:
+            raise Exception("You must train the model before trying to predict the outcome")
 
     def predict_symbol(self, symbol):
         cnx = mysql.connector.connect(user='root', database='stock_data', password='root')
@@ -58,3 +59,9 @@ class StockDecisionTree:
         cnx.close()
 
         return self.model.predict(test_data)
+
+    def model_mse(self, test_data, test_labels):
+        if self.model != "":
+            return mean_squared_error(test_labels, self.model.predict(test_data))
+        else:
+            raise Exception("You must train the model before trying to predict the outcome")

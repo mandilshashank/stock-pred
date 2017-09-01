@@ -1,12 +1,11 @@
 from DecisionTreeModel import StockDecisionTree
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.neural_network import MLPRegressor
 
 
-class RandomForestModel(StockDecisionTree):
+class NeuralNetworkModel(StockDecisionTree):
     def __init__(self):
         StockDecisionTree.__init__(self)
 
     def trainModel(self, training_samples, class_labels):
-        params = {'n_estimators': 500, 'max_depth': 4, 'min_samples_split': 2}
-        clf = RandomForestRegressor(**params)
+        clf = MLPRegressor()
         self.model = clf.fit(training_samples, class_labels)

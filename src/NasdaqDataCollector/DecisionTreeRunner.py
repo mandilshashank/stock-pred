@@ -1,10 +1,10 @@
 import datetime
-import mysql.connector
 from random import randint
-from sklearn import tree
-import DecisionTreeModel
-from GBDTModel import GBDTModel
+import mysql.connector
+from DecisionTreeModel import StockDecisionTree
+from NeuralNetworkModel import NeuralNetworkModel
 from RandomForestModel import RandomForestModel
+from GBDTModel import GBDTModel
 
 
 class DecisionTreeRunner:
@@ -70,15 +70,36 @@ class DecisionTreeRunner:
 
 
 if __name__ == "__main__":
-    prediction_symbol = "WFC"
+    prediction_symbol = "MAC"
 
     dc = DecisionTreeRunner()
     [ts, cl, td, tl, tss] = dc.get_training_and_test_data(prediction_symbol)
 
-    dtm = RandomForestModel()
-    dtm.trainModel(ts, cl)
+    model1 = NeuralNetworkModel()
+    model1.trainModel(ts, cl)
+    model1_prediction = model1.predict_symbol(prediction_symbol)
+    print "Model 1 : " + str(model1_prediction[0])
 
-    print dtm.model.feature_importances_
+    model2 = GBDTModel()
+    model2.trainModel(ts, cl)
+    model2_prediction = model2.predict_symbol(prediction_symbol)
+    print "Model 2 : " + str(model2_prediction[0])
+
+    model3 = RandomForestModel()
+    model3.trainModel(ts, cl)
+    model3_prediction = model3.predict_symbol(prediction_symbol)
+    print "Model 3 : " + str(model3_prediction[0])
+
+    model4 = StockDecisionTree()
+    model4.trainModel(ts, cl)
+    model4_prediction = model4.predict_symbol(prediction_symbol)
+    print "Model 4 : " + str(model4_prediction[0])
+
+
+    print "Predicted test label values"
+    print (model1_prediction[0] + model2_prediction[0] + model3_prediction[0] + model4_prediction[0])/4
+
+    #print dtm.model.feature_importances_
     #print dtm.model.feature_importances_
     # print dtm.model.max_features_
     # print dtm.model.n_features_
@@ -87,10 +108,6 @@ if __name__ == "__main__":
     # tree.export_graphviz(dtm.model,out_file='tree.dot')
 
     #print dtm.model.decision_path(td)
-
-    print "Predicted test label values"
-    print dtm.predict_symbol(prediction_symbol)
-
 
 
 
