@@ -75,7 +75,7 @@ if __name__ == "__main__":
     dtm.trainModel(ts, cl)
 
     #print dtm.model.feature_importances_
-    # print dtm.model.feature_importances_
+    #print dtm.model.feature_importances_
     # print dtm.model.max_features_
     # print dtm.model.n_features_
     # print dtm.model.n_outputs_
@@ -85,11 +85,9 @@ if __name__ == "__main__":
     #print dtm.model.decision_path(td)
 
     print "Predicted test label values"
-    print dtm.predict(td)
+    print dtm.predict_symbol("PCLN")
 
-    print "Actual test label values"
-    print tl
-    print tss
+
 
 
 
