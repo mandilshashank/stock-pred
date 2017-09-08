@@ -2,6 +2,8 @@ import datetime
 import mysql.connector
 from sklearn import tree
 from sklearn.metrics import mean_squared_error
+import pickle
+import os
 
 
 class StockDecisionTree:
@@ -18,13 +20,13 @@ class StockDecisionTree:
         else:
             raise Exception("You must train the model before trying to predict the outcome")
 
-    def predict_symbol(self, symbol):
+    def predict_symbol(self, symbol, start_date=datetime.date(2017,8,30)):
         cnx = mysql.connector.connect(user='root', database='stock_data', password='root')
         cursor = cnx.cursor()
 
         query = ("SELECT * FROM stocks_snaps where date_snap = '{}' and symbol='{}'")
 
-        stocks_date = datetime.date(2017, 8, 30)
+        stocks_date = start_date
         final_query = query.format(stocks_date, symbol)
         cursor.execute(final_query)
 
@@ -65,3 +67,18 @@ class StockDecisionTree:
             return mean_squared_error(test_labels, self.model.predict(test_data))
         else:
             raise Exception("You must train the model before trying to predict the outcome")
+
+    def save_model(self, filename="decision_tree.model"):
+        script_dir = os.path.dirname(__file__)
+        rel_path = "../models/"+filename
+        abs_file_path = os.path.join(script_dir, rel_path)
+        if self.model != "":
+            return pickle.dump(self.model, open(abs_file_path, 'wb'))
+        else:
+            raise Exception("You must train the model before trying to save it")
+
+    def load_model(self, filename="decision_tree.model"):
+        script_dir = os.path.dirname(__file__)
+        rel_path = "../models/"+filename
+        abs_file_path = os.path.join(script_dir, rel_path)
+        self.model = pickle.load(open(abs_file_path, 'rb'))

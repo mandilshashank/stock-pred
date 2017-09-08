@@ -12,8 +12,13 @@ class Prediction(Resource):
                                                   datetime.date(int(ey),int(em),int(ed)))
         return ({'prediction': stock_pred})
 
-api.add_resource(Prediction, '/prediction/<stock_symbol>', '/prediction/<stock_symbol>/<sd>/<sm>/<sy>/<ed>/<em>/<ey>')
+class PredictionLearned(Resource):
+    def get(self, stock_symbol, sd=30, sm=8, sy=2017):
+        stock_pred = StockPredictor.predict_stock(stock_symbol, datetime.date(int(sy),int(sm),int(sd)))
+        return ({'prediction': stock_pred})
 
+api.add_resource(Prediction, '/prediction/<stock_symbol>', '/prediction/<stock_symbol>/<sd>/<sm>/<sy>/<ed>/<em>/<ey>')
+api.add_resource(PredictionLearned, '/prediction/<stock_symbol>/<sd>/<sm>/<sy>')
 
 if __name__ == '__main__':
     app.run(port='5002')
