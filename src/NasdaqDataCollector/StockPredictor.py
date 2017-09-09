@@ -7,7 +7,7 @@ from DataBuilder import DataBuilder
 
 class StockPredictor:
     @staticmethod
-    def predict_stock(stock_sym, start_date = datetime.date(2017, 8, 30), end_date = datetime.date(2017, 9, 6)):
+    def predict_stock3(stock_sym, start_date = datetime.date(2017, 8, 30), end_date = datetime.date(2017, 9, 6)):
         prediction_symbol_list = [stock_sym,]
         pricediff_iteration = []
 
@@ -62,7 +62,7 @@ class StockPredictor:
         model4.save_model()
 
     @staticmethod
-    def predict_stock(stock_sym, start_date = datetime.date(2017, 8, 30)):
+    def predict_stock2(stock_sym, start_date = datetime.date(2017, 8, 30)):
         model1 = NeuralNetworkModel()
         model1.load_model()
         model1_prediction = model1.predict_symbol(stock_sym, start_date)
