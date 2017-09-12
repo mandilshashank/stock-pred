@@ -1,7 +1,10 @@
 import datetime
 from flask import Flask, request
 from flask_restful import Resource, Api
-from src.NasdaqDataCollector.StockPredictor import StockPredictor
+import sys
+from os import path
+sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
+from NasdaqDataCollector.StockPredictor import StockPredictor
 
 app = Flask(__name__)
 api = Api(app)
