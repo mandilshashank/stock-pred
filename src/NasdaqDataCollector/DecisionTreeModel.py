@@ -4,7 +4,10 @@ from sklearn import tree
 from sklearn.metrics import mean_squared_error
 import pickle
 import os
-from src.NasdaqDataCollector.DataBuilder import DataBuilder
+import sys
+from os import path
+sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
+from NasdaqDataCollector.DataBuilder import DataBuilder
 
 
 class StockDecisionTree:
