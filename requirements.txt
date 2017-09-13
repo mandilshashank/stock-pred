@@ -1,0 +1,6 @@
+flask
+flask_restful
+mysql-connector-python-rf
+sklearn
+numpy
+scipy
