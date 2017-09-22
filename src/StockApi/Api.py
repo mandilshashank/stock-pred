@@ -28,7 +28,7 @@ class PredictYearTarget(Resource):
 
 api.add_resource(Prediction, '/prediction/<stock_symbol>', '/prediction/<stock_symbol>/<sd>/<sm>/<sy>/<ed>/<em>/<ey>')
 api.add_resource(PredictionLearned, '/prediction/<stock_symbol>/<sd>/<sm>/<sy>')
-api.add_resource(PredictYearTarget, '/prediction_year/<stock_symbol>/<sd>/<sm>/<sy>')
+api.add_resource(PredictYearTarget, '/prediction_year/<stock_symbol>', '/prediction_year/<stock_symbol>/<sd>/<sm>/<sy>')
 
 if __name__ == '__main__':
     app.run(port='5002')
