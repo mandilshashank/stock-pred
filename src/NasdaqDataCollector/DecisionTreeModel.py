@@ -2,6 +2,7 @@ import datetime
 import mysql.connector
 from sklearn import tree
 from sklearn.metrics import mean_squared_error
+from sklearn.metrics import r2_score
 import pickle
 import os
 import sys
@@ -32,6 +33,12 @@ class StockDecisionTree:
     def model_mse(self, test_data, test_labels):
         if self.model != "":
             return mean_squared_error(test_labels, self.model.predict(test_data))
+        else:
+            raise Exception("You must train the model before trying to predict the outcome")
+
+    def model_r2_score(self, test_data, test_labels):
+        if self.model != "":
+            return r2_score(test_labels, self.model.predict(test_data))
         else:
             raise Exception("You must train the model before trying to predict the outcome")
 

@@ -57,7 +57,7 @@ class DataBuilder:
             final_one_yr_target_price = final_previous_close if one_yr_target_price.find('N') > -1 \
                 else float(one_yr_target_price)
 
-            if (randint(0, 100)%5 == 0 or symbol == prediction_sym):
+            if (randint(0, 100)%10 == 0 or symbol == prediction_sym):
                 test_data_point = [final_previous_close, final_dividend_yield, final_dividend_per_share,
                                    final_f2_wk_high, final_f2_wk_low, final_eps,final_book_value, final_price_per_sales,
                                    final_price_per_book,final_pe, final_peg, final_short_ratio]
@@ -141,7 +141,6 @@ class DataBuilder:
                     else float(one_yr_target_price)
                 final_price_diff = price_diff
 
-                #randint(0, 100)%5 == 0 or
                 if (symbol == prediction_sym):
                     test_data_point = [final_previous_close, final_dividend_yield, final_dividend_per_share,
                                        final_f2_wk_high, final_f2_wk_low, final_eps,final_book_value, final_price_per_sales,
