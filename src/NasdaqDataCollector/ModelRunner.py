@@ -5,13 +5,14 @@ from GBDTModel import GBDTModel
 from src.NasdaqDataCollector.DataBuilder import DataBuilder
 
 if __name__ == "__main__":
-    prediction_symbol = "STX"
+    prediction_symbol = "FDX"
 
     dc = DataBuilder()
-    [ts, cl, td, tl, tss] = dc.get_training_and_test_data(prediction_symbol)
+    [ts, cl, td, tl, tss] = dc.get_training_and_test_data_sym(prediction_symbol)
 
     model1 = NeuralNetworkModel()
     model1.trainModel(ts, cl)
+    print "Model 1 Score : " + str(model1.model.score(td, tl))
     print "Model 1 MSE : " + str(model1.model_mse(td,tl))
     model1_prediction = model1.predict_symbol(prediction_symbol)
     print "Model 1 : " + str(model1_prediction[0])

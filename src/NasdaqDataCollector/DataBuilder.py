@@ -22,7 +22,7 @@ class DataBuilder:
         abs_file_path = os.path.join(script_dir, rel_path)
         return pickle.load(open(abs_file_path, 'rb'))
 
-    def get_training_and_test_data(self, prediction_sym):
+    def get_training_and_test_data_sym(self, prediction_sym):
         cnx = mysql.connector.connect(user='root', database='stock_data', password='root')
         cursor = cnx.cursor()
 
@@ -86,7 +86,7 @@ class DataBuilder:
 
         return [scaled_training_samples, class_labels, scaled_test_data, test_labels, test_stock_sym]
 
-    def get_training_and_test_data(self, prediction_sym, start_date, end_date):
+    def get_training_and_test_data_sym2(self, prediction_sym, start_date, end_date):
         cnx = mysql.connector.connect(user='root', database='stock_data', password='root')
         cursor = cnx.cursor()
 

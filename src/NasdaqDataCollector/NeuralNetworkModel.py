@@ -7,7 +7,7 @@ class NeuralNetworkModel(StockDecisionTree):
         StockDecisionTree.__init__(self)
 
     def trainModel(self, training_samples, class_labels):
-        clf = MLPRegressor(max_iter=100000)
+        clf = MLPRegressor(max_iter=10000000, solver='sgd', momentum=0.1, early_stopping=True)
         self.model = clf.fit(training_samples, class_labels)
 
     def save_model(self, filename="nn.model"):

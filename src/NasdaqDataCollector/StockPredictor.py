@@ -16,7 +16,7 @@ class StockPredictor:
         for prediction_symbol in prediction_symbol_list:
             for x in range(0, 3):
                 dc = DataBuilder()
-                [ts, cl, td, tl, tss] = dc.get_training_and_test_data(prediction_symbol, start_date,
+                [ts, cl, td, tl, tss] = dc.get_training_and_test_data_sym2(prediction_symbol, start_date,
                                                                       end_date)
 
                 model1 = NeuralNetworkModel()
@@ -44,7 +44,7 @@ class StockPredictor:
     @staticmethod
     def build_models(start_date = datetime.date(2017, 8, 30), end_date = datetime.date(2017, 9, 6)):
         dc = DataBuilder()
-        [ts, cl, td, tl, tss] = dc.get_training_and_test_data("all", start_date,
+        [ts, cl, td, tl, tss] = dc.get_training_and_test_data_sym2("all", start_date,
                                                               end_date)
 
         model1 = NeuralNetworkModel()
