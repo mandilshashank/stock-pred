@@ -22,13 +22,13 @@ class DataBuilder:
         abs_file_path = os.path.join(script_dir, rel_path)
         return pickle.load(open(abs_file_path, 'rb'))
 
-    def get_training_and_test_data_sym(self, prediction_sym):
+    def get_training_and_test_data_sym(self, prediction_sym, learn_date):
         cnx = mysql.connector.connect(user='root', database='stock_data', password='root')
         cursor = cnx.cursor()
 
         query = ("SELECT * FROM stocks_snaps where date_snap = '{}'")
 
-        stocks_date = datetime.date(2017, 8, 30)
+        stocks_date = learn_date
         final_query = query.format(stocks_date)
         cursor.execute(final_query)
 
