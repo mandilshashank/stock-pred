@@ -86,7 +86,7 @@ class DataBuilder:
 
         return [scaled_training_samples, class_labels, scaled_test_data, test_labels, test_stock_sym]
 
-    def get_training_and_test_data_sym2(self, prediction_sym, start_date, end_date):
+    def get_training_and_test_data_sym2(self, prediction_sym, start_date, end_date, day_diff=7):
         iteration = 1
         training_samples = []
         class_labels = []
@@ -97,8 +97,8 @@ class DataBuilder:
         while True:
             print "Iteration Num : " + str(iteration)
             if iteration != 1:
-                start_date += datetime.timedelta(days=7)
-                end_date += datetime.timedelta(days=7)
+                start_date += datetime.timedelta(days=day_diff)
+                end_date += datetime.timedelta(days=day_diff)
             iteration += 1
 
             cnx = mysql.connector.connect(user='root', database='stock_data', password='root')
@@ -165,7 +165,7 @@ class DataBuilder:
                 break
 
         scaler = preprocessing.StandardScaler().fit(training_samples)
-        self.save_scaler(scaler, "prediction.scaler")
+        self.save_scaler(scaler, str(day_diff) + "prediction.scaler")
 
         scaled_training_samples = scaler.transform(training_samples)
         scaled_test_data = []
@@ -175,7 +175,7 @@ class DataBuilder:
 
         return [scaled_training_samples, class_labels, scaled_test_data, test_labels, test_stock_sym]
 
-    def get_symbol_data(self, start_date, symbol):
+    def get_symbol_data(self, start_date, symbol, day_diff):
         cnx = mysql.connector.connect(user='root', database='stock_data', password='root')
         cursor = cnx.cursor()
         query = ("SELECT * FROM stocks_snaps where date_snap = '{}' and symbol='{}'")
@@ -207,7 +207,7 @@ class DataBuilder:
             test_data.append(test_data_point)
 
 
-        scaler = self.load_scaler("prediction.scaler")
+        scaler = self.load_scaler(str(day_diff) + "prediction.scaler")
         scaled_test_data = scaler.transform(test_data)
 
         cursor.close()

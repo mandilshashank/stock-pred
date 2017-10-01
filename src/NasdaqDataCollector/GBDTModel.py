@@ -12,8 +12,8 @@ class GBDTModel(StockDecisionTree):
         clf = ensemble.GradientBoostingRegressor(**params)
         self.model = clf.fit(training_samples, class_labels)
 
-    def save_model(self, filename="gbdt.model"):
-        StockDecisionTree.save_model(self, filename)
+    def save_model(self, filename="gbdt.model", train_range=7):
+        StockDecisionTree.save_model(self, filename, train_range)
 
-    def load_model(self, filename="gbdt.model"):
-        StockDecisionTree.load_model(self, filename)
+    def load_model(self, filename="gbdt.model", train_range=7):
+        StockDecisionTree.load_model(self, filename, train_range)

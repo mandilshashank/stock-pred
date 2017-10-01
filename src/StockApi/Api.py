@@ -17,8 +17,8 @@ class Prediction(Resource):
         return ({'prediction': stock_pred})
 
 class PredictionLearned(Resource):
-    def get(self, stock_symbol, sd=30, sm=8, sy=2017):
-        stock_pred = StockPredictor.predict_stock2(stock_symbol, datetime.date(int(sy),int(sm),int(sd)))
+    def get(self, stock_symbol, sd=30, sm=8, sy=2017, predict_range=7):
+        stock_pred = StockPredictor.predict_stock2(stock_symbol, datetime.date(int(sy),int(sm),int(sd)), int(predict_range))
         return ({'prediction': stock_pred})
 
 class PredictYearTarget(Resource):
@@ -26,9 +26,12 @@ class PredictYearTarget(Resource):
         stock_pred = ModelRunner.predict_year_target(stock_symbol, datetime.date(int(sy),int(sm),int(sd)))
         return ({'data': stock_pred})
 
-api.add_resource(Prediction, '/prediction/<stock_symbol>', '/prediction/<stock_symbol>/<sd>/<sm>/<sy>/<ed>/<em>/<ey>')
-api.add_resource(PredictionLearned, '/prediction/<stock_symbol>/<sd>/<sm>/<sy>')
-api.add_resource(PredictYearTarget, '/prediction_year/<stock_symbol>', '/prediction_year/<stock_symbol>/<sd>/<sm>/<sy>')
+api.add_resource(Prediction, '/prediction/<stock_symbol>',
+                 '/prediction/<stock_symbol>/<sd>/<sm>/<sy>/<ed>/<em>/<ey>')
+api.add_resource(PredictionLearned, '/prediction/<stock_symbol>/<sd>/<sm>/<sy>',
+                 '/prediction/<stock_symbol>/<sd>/<sm>/<sy>/<predict_range>')
+api.add_resource(PredictYearTarget, '/prediction_year/<stock_symbol>',
+                 '/prediction_year/<stock_symbol>/<sd>/<sm>/<sy>')
 
 if __name__ == '__main__':
     app.run(port='5002')

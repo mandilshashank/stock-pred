@@ -25,9 +25,9 @@ class StockDecisionTree:
         else:
             raise Exception("You must train the model before trying to predict the outcome")
 
-    def predict_symbol(self, symbol, start_date=datetime.date(2017,8,30)):
+    def predict_symbol(self, symbol, start_date=datetime.date(2017,8,30), day_diff=7):
         db = DataBuilder()
-        test_data = db.get_symbol_data(start_date, symbol)
+        test_data = db.get_symbol_data(start_date, symbol, day_diff)
         return self.model.predict(test_data)
 
     def model_mse(self, test_data, test_labels):
@@ -42,17 +42,17 @@ class StockDecisionTree:
         else:
             raise Exception("You must train the model before trying to predict the outcome")
 
-    def save_model(self, filename="decision_tree.model"):
+    def save_model(self, filename="decision_tree.model", train_range=7):
         script_dir = os.path.dirname(__file__)
-        rel_path = "../models/"+filename
+        rel_path = "../models/"+str(train_range)+filename
         abs_file_path = os.path.join(script_dir, rel_path)
         if self.model != "":
             return pickle.dump(self.model, open(abs_file_path, 'wb'))
         else:
             raise Exception("You must train the model before trying to save it")
 
-    def load_model(self, filename="decision_tree.model"):
+    def load_model(self, filename="decision_tree.model", train_range=7):
         script_dir = os.path.dirname(__file__)
-        rel_path = "../models/"+filename
+        rel_path = "../models/"+str(train_range)+filename
         abs_file_path = os.path.join(script_dir, rel_path)
         self.model = pickle.load(open(abs_file_path, 'rb'))
