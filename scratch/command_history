@@ -1,0 +1,826 @@
+ ssh-keygen
+    2  ls
+    3  cat ~/.ssh/id_rsa.pub
+    4  ls
+    5  vim shared/config/database.yml
+    6  mkdir -p shared/config/
+    7  vim shared/config/database.yml
+    8  ls /home/ubuntu/e2delivery/shared/config/database.yml
+    9  pwd
+   10  vim /home/ubuntu/e2delivery/shared/config/database.yml
+   11  vim /home/ubuntu/e2delivery/shared/config/secret.yml
+   12  ls /home/ubuntu/e2delivery/shared/config/secrets.yml
+   13  mv /home/ubuntu/e2delivery/shared/config/secret.yml /home/ubuntu/e2delivery/shared/config/secrets.yml
+   14  cat /home/ubuntu/e2delivery/revisions.log
+   15  vim /etc/nginx/sites-enabled/default
+   16  sudo vim /etc/nginx/sites-enabled/default
+   17  sudo service nginx restart
+   18  ystemctl status nginx.service
+   19  systemctl status nginx.service
+   20  sudo vim /etc/nginx/sites-enabled/default
+   21  sudo service nginx restart
+   22  sudo vim /etc/nginx/sites-enabled/default
+   23  ls /home/ubuntu/e2delivery/current
+   24  ls /home/ubuntu/e2delivery/current/public/
+   25  ls /home/ubuntu/e2delivery/current/
+   26  sudo vim /etc/nginx/sites-enabled/default
+   27  cat /etc/nginx/sites-enabled/default
+   28  sudo service nginx restart
+   29  sudo vim /etc/nginx/sites-enabled/default
+   30  sudo service nginx restart
+   31  ls
+   32  rm -rf shared/
+   33  cd e2delivery/
+   34  ls
+   35  cd current
+   36  ls
+   37  cd public/
+   38  ls
+   39  cd system
+   40  ls
+   41  cd ..
+   42  cd .
+   43  cd ..
+   44  ls
+   45  cd ..
+   46  ls
+   47  cd releases/
+   48  ls
+   49  cd 20170420055503/
+   50  ls
+   51  cd public/
+   52  ls
+   53  cd ..
+   54  ls
+   55  cd ..
+   56  ls
+   57  cd ..
+   58  ls
+   59  sudo vim /etc/nginx/sites-enabled/defaultls /home/ubuntu/e2delivery
+   60  ls /home/ubuntu/e2delivery
+   61  cd shared/
+   62  ls
+   63  cd public/
+   64  ls
+   65  cd ../../
+   66  ls
+   67  cd current
+   68  ls
+   69  cd public/
+   70  bundle install
+   71  sudo apt install ruby-bundler
+   72  bundle install
+   73  sudo gem install nio4r -v '2.0.0'
+   74  sudo bundle install
+   75  gem install nio4r -v '2.0.0'
+   76  ls -la
+   77  ls -la /var/lib/gems/2.3.0
+   78  sudo gem install nio4r -v '2.0.0'
+   79  ls /usr/lib/ruby/include/ruby.h
+   80  hostname
+   81  echo$HOME
+   82  echo $HOME
+   83  ls $HOME/ls
+   84  ls
+   85  cd $HOME
+   86  ls
+   87  echo $PATH
+   88  echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+   89  echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+   90  exec $SHELL
+   91  ruby -v
+   92  cd
+   93  git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+   94  echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+   95  echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+   96  exec $SHELL
+   97  git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+   98  echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
+   99  exec $SHELL
+  100  ls
+  101  sudo apt-get update
+  102  sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev nodejs
+  103  cd
+  104  git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+  105  echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+  106  echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+  107  exec $SHELL
+  108  git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+  109  echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
+  110  exec $SHELL
+  111  exit
+  112  rbenv install 2.4.0
+  113  rbenv global 2.4.0
+  114  ruby -v
+  115  gem install bundler
+  116  bundle install
+  117  cd e2delivery/
+  118  bundle install
+  119  ls
+  120  cd current
+  121  ls
+  122  bundle install
+  123  cd ..
+  124  ls
+  125  vim shared/config/database.yml
+  126  vim shared/config/secrets.yml
+  127  vim shared/config/database.yml
+  128  sudo vim /etc/environment
+  129  mysql -u root -proot
+  130  sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7
+  131  sudo apt-get install -y apt-transport-https ca-certificates
+  132  sudo sh -c 'echo deb https://oss-binaries.phusionpassenger.com/apt/passenger xenial main > /etc/apt/sources.list.d/passenger.list'
+  133  sudo apt-get update
+  134  sudo apt-get install -y nginx-extras passenger
+  135  sudo service nginx start
+  136  sudo vim /etc/nginx/nginx.conf
+  137  sudo vim /etc/nginx/passenger.conf
+  138  sudo service nginx restart
+  139  which passenger-config
+  140  sudo vim /etc/nginx/nginx.conf
+  141  sudo vim /etc/nginx/sites-enabled/default
+  142  sudo service nginx restart
+  143  sudo vim /etc/environment
+  144  sudo -E passenger-status
+  145  sudo env PASSENGER_INSTANCE_REGISTRY_DIR=/tmp passenger-status
+  146  sudo vim /etc/environment
+  147  curl localhost
+  148  sudo vim /etc/nginx/sites-enabled/default
+  149  ls
+  150  cd current
+  151  ls
+  152  cd public/
+  153  ls
+  154  cd ..
+  155  ls
+  156  cd bin/
+  157  ls
+  158  cd ..
+  159  ls
+  160  rails server
+  161  bundle install
+  162  git status
+  163  passenger-config --root
+  164  which ruby
+  165  ls
+  166  cd ..
+  167  ls
+  168  ls -la
+  169  cd current
+  170  ls -la
+  171  sudo vim /etc/nginx/sites-enabled/default
+  172  sudo vim /etc/nginx/nginx.conf
+  173  sudo vim /etc/nginx/passenger.conf
+  174  sudo service nginx restart
+  175  cat /home/ubuntu/.ssh/authorized_keys
+  176  sudo adduser deploy
+  177  id deploy
+  178  sudo adduser deploy sudo
+  179  su deploy
+  180  ls
+  181  cd e2delivery/
+  182  ls
+  183  cd releases/
+  184  cd ..
+  185  tree
+  186  sudo apt install tree
+  187  tree
+  188  cd releases/
+  189  tree
+  190  ls
+  191  ls -lrt
+  192  date
+  193  cd ..
+  194  ls
+  195  cd repo
+  196  ll
+  197  cd ..
+  198  ls -la
+  199  mysql -u root -proot
+  200  exit
+  201  mysql -u root -proot
+  202  ls
+  203  cd e2delivery/
+  204  ls
+  205  cd current
+  206  ls
+  207  cd log
+  208  ks
+  209  ls
+  210  less production.log
+  211  echo $E2DELIVERY_DATABASE_PASSWORD
+  212  less production.log
+  213  mysql -u e2delivery -pe2delivery
+  214  echo $ENV
+  215  echo $
+  216  echo $environment
+  217  less production.log
+  218  mysql -u e2delivery -pe2delivery
+  219  less production.log
+  220  ps ax | grep rails
+  221  ps ax | grep server
+  222  ps ax
+  223  ps ax | grep ruby
+  224  ps ax | grep Ruby
+  225  ls /tmp/mysql.sock
+  226  cd ..
+  227  ls
+  228  cd public/
+  229  ls
+  230  cd ..
+  231  ls
+  232  find . -name database.yml
+  233  less ./config/database.yml
+  234  echo $E2DELIVERY_DATABASE_PASSWORD
+  235  ls
+  236  less log/production.log
+  237  gem check mysql2
+  238  bundle install
+  239  exit
+  240  ls -la .rbenv
+  241  ls -la ~/.rbenv
+  242  ls -la ~/
+  243  less ~/.rbenv
+  244  cd ~/.rbenv
+  245  ls
+  246  cd rbenv.d
+  247  ls
+  248  cd exec/
+  249  ls
+  250  cd ..
+  251  echo $SECRET_KEY_BASE
+  252  cd ..
+  253  ls
+  254  cd e2delivery/
+  255  ls
+  256  cd current
+  257  ls
+  258  find . -name secrets.yml
+  259  less ./config/secrets.yml
+  260  find . -name database.yml
+  261  less ./config/database.yml
+  262  ls /etc/environment
+  263  less /etc/environment
+  264  less log/production.log
+  265  rails
+  266  Rails.env.production?
+  267  ls
+  268  less log/production.log
+  269  echo $E2DELIVERY_DATABASE_PASSWORD
+  270  less ./config/database.yml
+  271  vim ./config/database.yml
+  272  echo $E2DELIVERY_DATABASE_PASSWORD
+  273  less log/production.log
+  274  exit
+  275  vim ./config/database.yml
+  276  cd e2delivery/
+  277  vim ./config/database.yml
+  278  cd current
+  279  ls
+  280  vim ./config/database.yml
+  281  echo $E2DELIVERY_DATABASE_PASSWORD
+  282  E2DELIVERY_DATABASE_PASSWORD='\'e2delivery\''
+  283  E2DELIVERY_DATABASE_PASSWORD="'e2delivery'"
+  284  echo $E2DELIVERY_DATABASE_PASSWORD
+  285  less /etc/environment
+  286  sudo vim /etc/environment
+  287  vim ./config/database.yml
+  288  echo $E2DELIVERY_DATABASE_PASSWORD
+  289  exit
+  290  echo $E2DELIVERY_DATABASE_PASSWORD
+  291  cd e2delivery/
+  292  vim ./config/database.yml
+  293  cd current
+  294  vim ./config/database.yml
+  295  less log/production.log
+  296  vim ./config/database.yml
+  297  exit
+  298  cd e2delivery/current
+  299  vim ./config/database.yml
+  300  ls
+  301  cd ..
+  302  ls
+  303  cd releases/
+  304  ls
+  305  cd ..
+  306  ls
+  307  cd current
+  308  ls
+  309  cd ..
+  310  cd shared/
+  311  ls
+  312  vim config/
+  313  cd ..
+  314  ls
+  315  ls -la ./config/database.yml
+  316  cd current
+  317  ls -la ./config/database.yml
+  318  vim ./config/database.yml
+  319  sudo vim /etc/environment
+  320  echo $E2DELIVERY_DATABASE_PASSWORD
+  321  E2DELIVERY_DATABASE_PASSWORD="e2delivery"
+  322  echo $E2DELIVERY_DATABASE_PASSWORD
+  323  ls
+  324  less log/production.log
+  325  exit
+  326  PUBLISHABLE_KEY=pk_test_2hZsuDrDxq9Xyjtg1aMVjC5m SECRET_KEY=sk_test_Kd6Vt2Q7UWQjaj4zPsPEMPaF
+  327  echo $PUBLISHABLE_KEY
+  328  echo $SECRET_KEY
+  329  sudo vim /etc/environment
+  330  exit
+  331  echo $SECRET_KEY
+  332  less ./config/secrets.yml
+  333  cd e2delivery/current
+  334  less ./config/secrets.yml
+  335  export PUBLISHABLE_KEY=pk_test_2hZsuDrDxq9Xyjtg1aMVjC5m; export SECRET_KEY=sk_test_Kd6Vt2Q7UWQjaj4zPsPEMPaF
+  336  echo $pk_test_2hZsuDrDxq9Xyjtg1aMVjC5m
+  337  echo $PUBLISHABLE_KEY
+  338  exit
+  339  cd e2delivery/current
+  340  vim ./config/secrets.yml
+  341  echo $SECRET_KEY_BASE
+  342  vim ./config/secrets.yml
+  343  echo $SECRET_KEY
+  344  echo $PUBLISHABLE_KEY
+  345  EXIT
+  346  exit
+  347  mysql -u e2delivery -pe2delivery
+  348  exit
+  349  mysql -u e2delivery -pe2delivery
+  350  exit
+  351  mysql -u e2delivery -pe2delivery
+  352  exit
+  353  ls
+  354  cd e2delivery/current/log/
+  355  ls
+  356  less production.log
+  357  exho $SECRET_KEY
+  358  echo $SECRET_KEY
+  359  export $SECRET_KEY=sk_live_uYhGC3a2YtIgESZpz2eLJMMA
+  360  echo $SECRET_KEY
+  361  echo $$SECRET_KEY
+  362  export SECRET_KEY=sk_live_uYhGC3a2YtIgESZpz2eLJMMA
+  363  echo $SECRET_KEY
+  364  cd ..
+  365  ls
+  366  cd config/
+  367  ls
+  368  less secrets.yml
+  369  sudo vim secrets.yml
+  370  echo $PUBLISHABLE_KEY
+  371  echo $SECRET_KEY
+  372  export PUBLISHABLE_KEY=pk_live_TxZmQMewHhIh4yHsWyVEHdOT
+  373  echo $PUBLISHABLE_KEY
+  374  less secrets.yml
+  375  cd ..
+  376  cd config/
+  377  less secrets.yml
+  378  ls
+  379  cd e2delivery/current
+  380  ls
+  381  cd lib/
+  382  cd ../log/
+  383  ls
+  384  less production.log
+  385  mysql -u e2delivery -pe2delivery
+  386  ls
+  387  less production.log
+  388  cd e2delivery/current/log
+  389  less production.log
+  390  mysql -u e2delivery -pe2delivery
+  391  less production.log
+  392  ls
+  393  cd ..
+  394  ls
+  395  ls /var/log/apache2
+  396  less /var/log/nginx/access.log
+  397  less /var/log/nginx/access.log.1
+  398  zless /var/log/nginx/access.log.2.gz
+  399  less /var/log/nginx/access.log.1
+  400  less /var/log/nginx/access.log
+  401  mysql -u e2delivery -pe2delivery
+  402  ls
+  403  cd e2delivery/
+  404  ls
+  405  cd ..
+  406  ls
+  407  git clone git@github.com:mandilshashank/stock-pred.git
+  408  ls
+  409  cd stock-pred/
+  410  ls
+  411  cd src/
+  412  ls
+  413  cd NasdaqDataCollector/
+  414  ls
+  415  vim DataCollector.py
+  416  cd ~/
+  417  mysql -u root -proot
+  418  ls
+  419  cd stock-pred/
+  420  python src/NasdaqDataCollector/DataCollector.py
+  421  which pip
+  422  which yum
+  423  which wget
+  424  wget -h
+  425  wget get-pip.py https://bootstrap.pypa.io/get-pip.py
+  426  ls
+  427  less get-pip.py
+  428  which python
+  429  python get-pip.py
+  430  sudo python get-pip.py
+  431  which pip
+  432  ls
+  433  rm get-pip.py
+  434  ls
+  435  pip -h
+  436  pip -r -h
+  437  python src/NasdaqDataCollector/DataCollector.py
+  438  pip install mysql.connector
+  439  pip install mysql
+  440  sudo pip install mysql
+  441  pip -h
+  442  pip search mysql
+  443  sudo apt-get install python-pip python-dev libmysqlclient-dev
+  444  python src/NasdaqDataCollector/DataCollector.py
+  445  pip search mysql-connector
+  446  pip search mysql-connector-pythno
+  447  pip search mysql-connector-python
+  448  pip install mysql-connector-python
+  449  pip search mysql-connector
+  450  pip install mysql-connector-python --allow-external mysql-connector-python
+  451  pip search mysql-connector | grep --color mysql-connector-python
+  452  pip install mysql-connector-python-rf
+  453  sudo pip install mysql-connector-python-rf
+  454  python src/NasdaqDataCollector/DataCollector.py
+  455  cd /etc/cron.daily/
+  456  ls
+  457  ls -la
+  458  ls
+  459  cd stock-pred/
+  460  mysql -u root -proot
+  461  history | grep Collector
+  462  which python
+  463  crontab -e
+  464  pwd
+  465  crontab -e
+  466  mysql -u root -proot
+  467  crontab -e
+  468  /usr/bin/python /home/ubuntu/stock-pred/src/NasdaqDataCollector/DataCollector.py
+  469  vim ~/stocks.txt
+  470  cat ~/stock
+  471  cat ~/stocks.txt | wc -l
+  472  crontab -e
+  473  /usr/bin/python ~/stock-pred/src/NasdaqDataCollector/ModelRunnerPriceDiff.py
+  474  pip install sklearn
+  475  sudo pip install sklearn
+  476  /usr/bin/python ~/stock-pred/src/NasdaqDataCollector/ModelRunnerPriceDiff.py
+  477  sudo pip install numpy
+  478  /usr/bin/python ~/stock-pred/src/NasdaqDataCollector/ModelRunnerPriceDiff.py
+  479  sudo pip install scipy
+  480  pip --no-cache-dir install scipy
+  481  sudo pip --no-cache-dir install scipy
+  482  /usr/bin/python ~/stock-pred/src/NasdaqDataCollector/ModelRunnerPriceDiff.py
+  483  vim ~/stock-pred/src/NasdaqDataCollector/ModelRunnerPriceDiff.py
+  484  /usr/bin/python ~/stock-pred/src/NasdaqDataCollector/ModelRunnerPriceDiff.py
+  485  git status
+  486  git diff  src/NasdaqDataCollector/ModelRunnerPriceDiff.py
+  487  vim src/NasdaqDataCollector/ModelRunnerPriceDiff.py
+  488  crontab --e
+  489  crontab -e
+  490  sudo find / -name stocks_collector.log
+  491  less
+  492  less /home/ubuntu/stocks_collector.log
+  493  mysql -u root -proot
+  494  crontab -e
+  495  /usr/bin/python /home/ubuntu/stock-pred/src/NasdaqDataCollector/DataCollector.py
+  497  systiem
+  498  systime
+  499  date
+  500  time
+  501  pip install flask flask-jsonpify flask-sqlalchemy flask-restful
+  502  sudo pip install flask flask-jsonpify flask-sqlalchemy flask-restful
+  503  ls
+  504  cd stock-pred/
+  505  git status
+  506  git diff src/NasdaqDataCollector/ModelRunnerPriceDiff.py
+  507  git stauts
+  508  git status
+  509  git checkout -- src/NasdaqDataCollector/ModelRunnerPriceDiff.py
+  510  git status
+  511  git pull origin master
+  512  ls src/NasdaqDataCollector/
+  513  less src/NasdaqDataCollector/DataCollector.py
+  514  crontab -r
+  515  crontab -e
+  516  ls
+  517  ls ~/
+  518  crontab -e
+  519  mysql -u root -p root
+  520  mysql -u root -proot
+  521  ls
+  522  cd stock-pred/
+  523  git pull origin master
+  524  python src/StockApi/Api.py
+  525  ls
+  526  cd src/
+  527  python StockApi/Api.py
+  528  cd ..
+  529  vim src/StockApi/Api.py
+  530  python src/StockApi/Api.py
+  531  curl "http://54.244.106.21:5002/prediction/MSFT"
+  532  curl "http://54.244.106.21:80/prediction/MSFT"
+  533  curl "http://54.244.106.21:5002/prediction/MSFT"
+  534  curl "http://localhost:5002/prediction/MSFT"
+  535  curl "http://localhost:5002/prediction/MSFT/6/9/2017"
+  536  sudo ufw
+  537  sudo ufw -h
+  538  sudo ufw starus
+  539  sudo ufw status
+  540  iptables -I INPUT 3 -s 0.0.0.0/0 -d 0.0.0.0/0 -p tcp --dport 5002 -m state --state New -j ACCEPT
+  541  sudo iptables -I INPUT 3 -s 0.0.0.0/0 -d 0.0.0.0/0 -p tcp --dport 5002 -m state --state New -j ACCEPT
+  542  sudo /sbin/service iptables save
+  543  sudo service iptables save
+  544  curl "http://localhost:5002/prediction/MSFT/6/9/2017"
+  545  netstat -anp | grep 5002
+  546  netstat -anp | grep 80
+  547  ls
+  548  cd e2delivery/
+  549  ls
+  550  cd ..
+  551  ls
+  552  sudo find / -name nginx
+  553  ps -ax | grep nginx
+  554  ps -ax | grep nginx.conf
+  555  sudo find / -name nginx.conf
+  556  less /etc/nginx/nginx.conf
+  557  ls /var/www/my_app_name
+  558  ls /var/www/html/index.nginx-debian.html
+  559  cd ~/e2delivery/
+  560  ls
+  561  ls -la
+  562  ls /etc/nginx/
+  563  cd /etc/nginx/
+  564  less passenger.conf
+  565  less uwsgi_params
+  566  less nginx.conf
+  567  cd ~/
+  568  which uwsgi
+  569  pip install uwsgi
+  570  sudo pip install uwsgi
+  571  curl "http://localhost:5002/prediction/MSFT/6/9/2017"
+  572  curl "http://localhost:5002/prediction/AAPL/6/9/2017"
+  573  curl "http://localhost:5002/prediction/AAPL/5/9/2017"
+  574  curl "http://localhost:5002/prediction/AAPL/4/9/2017"
+  575  curl "http://localhost:5002/prediction/AAPL/7/9/2017"
+  576  curl "http://localhost:5002/prediction/AAPL/8/9/2017"
+  577  curl "http://localhost:5002/prediction/AAPL/9/9/2017"
+  578  curl "http://localhost:5002/prediction/AAPL/10/9/2017"
+  579  curl "http://localhost:5002/prediction/AAPL/11/9/2017"
+  580  curl "http://localhost:5002/prediction/AAPL/10/9/2017"
+  581  curl "http://localhost:5002/prediction/AAPL/8/9/2017"
+  582  curl "http://localhost:5002/prediction/AAPL/6/9/2017"
+  583  curl "http://localhost:5002/prediction/AAPL/5/9/2017"
+  584  curl "http://localhost:5002/prediction/NVDA/6/9/2017"
+  585  curl "http://localhost:5002/prediction/MAC/6/9/2017"
+  586  curl "http://localhost:5002/prediction/TSLA/6/9/2017"
+  587  curl "http://localhost:5002/prediction/FDX/6/9/2017"
+  588  curl "http://localhost:5002/prediction/PEP/6/9/2017"
+  589  ls
+  590  ls -la
+  591  cd stock-pred/
+  592  history | grep Api
+  593  python src/StockApi/Api.py
+  594  ls
+  595  cat README
+  596  git status
+  597  git diff src/StockApi/Api.py
+  598  git checkout src/StockApi/Api.py
+  599  git status
+  600  git pull origin master
+  601  git status
+  602  git pull origin master
+  603  python src/StockApi/Api.py
+  604  less src/StockApi/Api.py
+  605  vim src/NasdaqDataCollector/DecisionTreeModel.py
+  606  python src/StockApi/Api.py
+  607  vim src/NasdaqDataCollector/DecisionTreeModel.py
+  608  python src/StockApi/Api.py
+  609  vim src/NasdaqDataCollector/DecisionTreeModel.py
+  610  python src/StockApi/Api.py
+  611  git checkout .
+  612  git status
+  613  git pull origin master
+  614  python src/StockApi/Api.py
+  615  ls
+  616  sudo apt-get update
+  617  sudo apt-get install python-dev python-pip nginx
+  618  sudo pip install virtualenv
+  619  mkdir ~/stock-pred-api/
+  620  cd ~/stock-pred
+  621  cd ../stock-pred-api/
+  622  virtualenv stockpredapienv
+  623  source stockpredapienv/bin/activate
+  624  pip install uwsgi
+  625  uwsgi --version
+  626  vi wsgi.py
+  627  uwsgi --socket 0.0.0.0:5000 --protocol=http -w wsgi
+  628  vim stockpredapi.ini
+  629  sudo vim /etc/init/stockpredapi.conf
+  630  sudo start myapp
+  631  exit
+  632  sudo start stockpredapi
+  633  which systemd
+  634  sudo rm /etc/init/stockpredapi.conf
+  635  sudo vim /etc/systemd/system/uwsgi.service
+  636  sudo systemctl start uwsgi
+  637  systemctl status uwsgi
+  638  ls
+  639  cd stock-pred
+  640  cd ../stock-pred-api/
+  641  ls
+  642  vim stockpredapi.ini
+  643  sudo systemctl start uwsgi
+  644  systemctl status uwsgi
+  645  user
+  646  cat /etc/passwd
+  647  vim stockpredapi.ini
+  648  sudo vim /etc/systemd/system/uwsgi.service
+  649  ls -la /run/wsgi
+  650  ls -la /run/
+  651  sudo systemctl start uwsgi
+  652  systemctl status uwsgi
+  653  systemctl daemon-reload
+  654  sudo systemctl daemon-reload
+  655  sudo systemctl start uwsgi
+  656  systemctl status uwsgi
+  657  ls /run/uwsgi
+  658  /home/ubuntu/stock_pred_api; source stockpredapienv/bin/activate;
+  659  cd /home/ubuntu/stock_pred_api; source stockpredapienv/bin/activate;
+  660  cd ~/
+  661  ls
+  662  pwd
+  663  ls
+  664  cd stock-pred-api
+  665  sudo vim /etc/systemd/system/uwsgi.service
+  666  cd /home/ubuntu/stock-pred-api; source stockpredapienv/bin/activate; uwsgi --ini stockpredapi.ini
+  667  sudo systemctl enable uwsgi
+  668  sudo systemctl start uwsgi
+  669  systemctl status uwsgi
+  670  sudo systemctl stop uwsgi
+  671  ls /run/wsgi
+  672  mkdir -p /run/uwsgi; chown ubuntu:www-data /run/uwsgi
+  673  sudo systemctl start uwsgi
+  674  systemctl status uwsgi
+  675  sudo mkdir -p /run/uwsgi; chown ubuntu:www-data /run/uwsgi
+  676  sudo mkdir -p /run/uwsgi; sudo chown ubuntu:www-data /run/uwsgi
+  677  ls -la /run/uwsgi/
+  678  ls -la /run/
+  679  sudo systemctl start uwsgi
+  680  systemctl status uwsgi
+  681  cd /home/ubuntu/stock-pred-api; source stockpredapienv/bin/activate;
+  682  uwsgi --ini stockpredapi.ini
+  683  sudo uwsgi --ini stockpredapi.ini
+  684  sudo vim /etc/systemd/system/uwsgi.service
+  685  sudo systemctl start uwsgi
+  686  sudo systemctl daemon-reload
+  687  sudo systemctl start uwsgi
+  688  systemctl status uwsgi
+  689  /usr/bin/bash
+  690  which bash
+  691  sudo vim /etc/systemd/system/uwsgi.service
+  692  sudo systemctl daemon-reload
+  693  sudo systemctl start uwsgi
+  694  systemctl status uwsgi
+  695  sudo systemctl enable uwsgi
+  696  sudo systemctl stop uwsgi
+  697  ls /etc/nginx/nginx.conf
+  698  sudo vim /etc/nginx/nginx.conf
+  699  less /etc/nginx/passenger.conf
+  700  less /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini
+  701  sudo vim /etc/nginx/nginx.conf
+  702  sudo nginx -t
+  703  sudo systemctl start nginx
+  704  sudo systemctl enable nginx
+  705  ps ax | grep nginx
+  706  sudo vim /etc/nginx/nginx.conf
+  707  sudo nginx -t
+  708  sudo systemctl start nginx
+  709  sudo vim /etc/nginx/nginx.conf
+  710  ls /etc/nginx/conf.d
+  711  sudo vim /etc/nginx/nginx.conf
+  712  ls /etc/nginx/sites-enabled/
+  713  less /etc/nginx/sites-enabled/default
+  714  sudo vim /etc/nginx/nginx.conf
+  715  sudo nginx -t
+  716  sudo systemctl start nginx
+  717  systemctl status
+  718  ps ax | grep wsgi
+  719  ps ax | grep uwsgi
+  720  ps ax | grep nginx
+  721  netstat -anp | grep 5002
+  722  sudo netstat -anp | grep 5002
+  723  sudo netstat -anp | grep 80
+  724  sudo vim /etc/nginx/nginx.conf
+  725  sudo nginx -t
+  726  sudo systemctl start nginx
+  727  less /var/log/nginx/access.log
+  728  less error.log
+  729  lesless /var/log/nginx/error.log
+  730  less /var/log/nginx/error.log
+  731  less /var/log/nginx/error.log.1
+  732  sudo vim /etc/nginx/nginx.conf
+  733  ls /run/uwsgi/stockpredapi.sock
+  734  sudo systemctl start uwsgi
+  735  systemctl status uwsgi
+  736  ls /run/uwsgi/stockpredapi.sock
+  737  sudo systemctl enable uwsgi
+  738  sudo vim /etc/nginx/nginx.conf
+  739  ls /run/uwsgi/stockpredapi.sock
+  740  sudo nginx -t
+  741  sudo systemctl start nginx
+  742  sudo netstat -anp | grep 5000
+  743  sudo netstat -anp | grep 80
+  744*
+  745  sudo netstat -anp | grep 5000
+  746  sudo netstat -anp | grep 80
+  747  ls
+  748  vim wsgi.py
+  749  systemctl status uwsgi
+  750  sudo systemctl start uwsgi
+  751  systemctl status uwsgi
+  752  sudo systemctl restart uwsgi
+  753  systemctl status uwsgi
+  754  ls
+  755  tm 'qq
+  756  rm qq
+  757  ls
+  758  vim wsgi.py
+  759  sudo systemctl restart uwsgi
+  760  systemctl status uwsgi
+  761  vim wsgi.py
+  762  sudo systemctl restart uwsgi
+  763  systemctl status uwsgi
+  764  echo $PYTHONPATH
+  765  echo $PYTHON_PATH
+  766  vim wsgi.py
+  767  sudo systemctl restart uwsgi
+  768  systemctl status uwsgi
+  769  vim wsgi.py
+  770  sudo systemctl restart uwsgi
+  771  systemctl status uwsgi
+  772  vim ~/requirements.txt
+  773  pip install flask
+  774  sudo systemctl restart uwsgi
+  775  systemctl status uwsgi
+  776  vim ~/requirements.txt
+  777  pip install flask-restful
+  778  sudo systemctl restart uwsgi
+  779  systemctl status uwsgi
+  780  history | grep connector
+  781  vim ~/requirements.txt
+  782  man pip
+  783  pip install -r ~/requirements.txt
+  784  sudo systemctl restart uwsgi
+  785  systemctl status uwsgi
+  786  vim ~/requirements.txt
+  787  pip install -r ~/requirements.txt
+  788  sudo systemctl restart uwsgi
+  789  systemctl status uwsgi
+  790*
+  791  vim ~/requirements.txt
+  792  pip install -r ~/requirements.txt
+  793  sudo systemctl restart uwsgi
+  794  systemctl status uwsgi
+  795  vim ~/requirements.txt
+  796  pip install -r ~/requirements.txt
+  797  pip --no-cache-dir install scipy
+  798  pip install --no-cache-dir -r ~/requirements.txt
+  799  sudo systemctl restart uwsgi
+  800  systemctl status uwsgi
+  801  ls
+  802  cd ..
+  803  ls
+  804  mv requirements.txt stock-pred-api/
+  805  ls
+  806  mv ~/stock-pred-api/requirements.txt ~/stock-pred
+  807  ls
+  808  cd stock-pred
+  809  git sttus
+  810  git statsu
+  811  git status
+  812  cat requirements.txt
+  813  ls
+  814  cd ..
+  815  cd stock-red
+  816  cd stock-pred
+  817  git sttaus
+  818  git pull origin master
+  819  rm requirements.txt
+  820  git pull origin master
+  821  git status
+  822  cd ..
+  823  ls
+  824  cd stock-pred-api/
+  825  ls
+  826  deactivate
+  827  history

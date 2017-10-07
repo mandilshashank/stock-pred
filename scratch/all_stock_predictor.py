@@ -1,5 +1,35 @@
 import urllib2
 import json
+import datetime
+from random import randint
+import mysql.connector
+from sklearn import preprocessing
+import os
+import pickle
+
+def getStocksData(data_date):
+    cnx = mysql.connector.connect(user='root', database='stock_data', password='root')
+    cursor = cnx.cursor()
+
+    query = ("SELECT * FROM stocks_snaps where date_snap = '{}'")
+
+    stocks_date = data_date
+    final_query = query.format(stocks_date)
+    cursor.execute(final_query)
+
+    ret_data={}
+    for (id, symbol, date_snap, previous_close, dividend_yield, dividend_per_share,
+         one_yr_target_price, f2_wk_high, f2_wk_low, eps, book_value, price_per_sales,
+         price_per_book, pe, peg, short_ratio) in cursor:
+
+        final_previous_close = 0 if previous_close.find('N') > -1 else float(previous_close)
+        ret_data[symbol]=final_previous_close
+
+
+    cursor.close()
+    cnx.close()
+
+    return ret_data
 
 if __name__ == '__main__':
     all_stock_list = ["IPG","OMC","FL","GPS","LB","ROST","TJX","COH","HBI","KORS","NKE","RL","PVH","TIF","UA","UAA","VFC",
@@ -35,7 +65,10 @@ if __name__ == '__main__':
                       "EIX","ETR","FE","PPL","PEG","SO","WEC","AES","NRG","AEE","CNP","CMS","DTE","ES","EXC","NEE","NI",
                       "PCG","PNW","SCG","SRE","XEL","AWK"]
 
-    for stock in all_stock_list:
-        url = "http://e2delivery.com:5000/prediction/{}/2/10/2017/30".format(stock)
+    some_stocks_list = ["AZO","KMX","GPC","ORLY","SIG","SPLS","TSCO","ULTA",]
+
+    for stock in some_stocks_list:
+        stock_data = getStocksData(datetime.date(2017, 10, 5))
+        url = "http://e2delivery.com:5000/prediction/{}/5/10/2017/30".format(stock)
         data = json.loads(urllib2.urlopen(url).read())
-        print stock + ":" + str(data["prediction"])
+        print stock + ":" + str(data["prediction"]) + ":" + str(stock_data[stock])
