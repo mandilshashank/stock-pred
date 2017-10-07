@@ -58,7 +58,7 @@ class DataBuilder:
                 else float(one_yr_target_price)
 
             if (randint(0, 100)%10 == 0 or symbol == prediction_sym):
-                test_data_point = [final_previous_close, final_dividend_yield, final_dividend_per_share,
+                test_data_point = [final_dividend_yield, final_dividend_per_share,
                                    final_f2_wk_high, final_f2_wk_low, final_eps,final_book_value, final_price_per_sales,
                                    final_price_per_book,final_pe, final_peg, final_short_ratio]
                 test_data.append(test_data_point)
@@ -66,7 +66,7 @@ class DataBuilder:
                 test_stock_sym.append(symbol)
 
             else:
-                training_sample_point = [final_previous_close, final_dividend_yield, final_dividend_per_share,
+                training_sample_point = [final_dividend_yield, final_dividend_per_share,
                                          final_f2_wk_high, final_f2_wk_low, final_eps,final_book_value,
                                          final_price_per_sales,final_price_per_book,final_pe, final_peg,
                                          final_short_ratio]
@@ -142,7 +142,7 @@ class DataBuilder:
                 final_price_diff = price_diff
 
                 if (symbol == prediction_sym):
-                    test_data_point = [final_previous_close, final_dividend_yield, final_dividend_per_share,
+                    test_data_point = [final_dividend_yield, final_dividend_per_share,
                                        final_f2_wk_high, final_f2_wk_low, final_eps,final_book_value, final_price_per_sales,
                                        final_price_per_book,final_pe, final_peg, final_short_ratio]
                     test_data.append(test_data_point)
@@ -150,7 +150,7 @@ class DataBuilder:
                     test_stock_sym.append(symbol)
 
                 else:
-                    training_sample_point = [final_previous_close, final_dividend_yield, final_dividend_per_share,
+                    training_sample_point = [final_dividend_yield, final_dividend_per_share,
                                              final_f2_wk_high, final_f2_wk_low, final_eps,final_book_value,
                                              final_price_per_sales,final_price_per_book,final_pe, final_peg,
                                              final_short_ratio]
@@ -175,7 +175,7 @@ class DataBuilder:
 
         return [scaled_training_samples, class_labels, scaled_test_data, test_labels, test_stock_sym]
 
-    def get_symbol_data(self, start_date, symbol, day_diff):
+    def get_symbol_data(self, start_date, symbol, day_diff, scaler_filename="prediction.scaler"):
         cnx = mysql.connector.connect(user='root', database='stock_data', password='root')
         cursor = cnx.cursor()
         query = ("SELECT * FROM stocks_snaps where date_snap = '{}' and symbol='{}'")
@@ -201,13 +201,16 @@ class DataBuilder:
             final_one_yr_target_price = final_previous_close if one_yr_target_price.find('N') > -1 \
                 else float(one_yr_target_price)
 
-            test_data_point = [final_previous_close, final_dividend_yield, final_dividend_per_share,
+            test_data_point = [final_dividend_yield, final_dividend_per_share,
                                final_f2_wk_high, final_f2_wk_low, final_eps, final_book_value, final_price_per_sales,
                                final_price_per_book, final_pe, final_peg, final_short_ratio]
             test_data.append(test_data_point)
 
 
-        scaler = self.load_scaler(str(day_diff) + "prediction.scaler")
+        if day_diff=="year":
+            scaler = self.load_scaler(scaler_filename)
+        else:
+            scaler = self.load_scaler(str(day_diff) + scaler_filename)
         scaled_test_data = scaler.transform(test_data)
 
         cursor.close()

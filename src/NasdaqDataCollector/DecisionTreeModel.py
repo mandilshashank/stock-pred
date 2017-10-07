@@ -25,9 +25,9 @@ class StockDecisionTree:
         else:
             raise Exception("You must train the model before trying to predict the outcome")
 
-    def predict_symbol(self, symbol, start_date=datetime.date(2017,8,30), day_diff=7):
+    def predict_symbol(self, symbol, start_date=datetime.date(2017,8,30), day_diff=7, scaler_filename= "prediction.scaler"):
         db = DataBuilder()
-        test_data = db.get_symbol_data(start_date, symbol, day_diff)
+        test_data = db.get_symbol_data(start_date, symbol, day_diff, scaler_filename)
         return self.model.predict(test_data)
 
     def model_mse(self, test_data, test_labels):
