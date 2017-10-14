@@ -216,3 +216,37 @@ class DataBuilder:
         cursor.close()
         cnx.close()
         return scaled_test_data
+
+    def get_price_diff_data(self, start_date, end_date):
+        data = {}
+
+        cnx = mysql.connector.connect(user='root', database='stock_data', password='root')
+        cursor = cnx.cursor()
+
+        query = """
+                    SELECT
+                        a.*,
+                        b.previous_close-a.previous_close as price_diff
+                    FROM
+                    (SELECT * FROM stocks_snaps where date_snap = '{}') a
+                    JOIN 
+                    (SELECT * FROM stocks_snaps where date_snap = '{}') b
+                    ON a.symbol = b.symbol
+                """
+        stocks_date = start_date
+        stocks_date_later = end_date
+
+        final_query = query.format(stocks_date, stocks_date_later)
+        cursor.execute(final_query)
+
+        for (id, symbol, date_snap, previous_close, dividend_yield, dividend_per_share,
+             one_yr_target_price, f2_wk_high, f2_wk_low, eps, book_value, price_per_sales,
+             price_per_book, pe, peg, short_ratio, price_diff) in cursor:
+            final_price_diff = price_diff
+
+            data[symbol] = final_price_diff
+
+        cursor.close()
+        cnx.close()
+
+        return data
