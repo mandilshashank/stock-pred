@@ -30,7 +30,7 @@ class ModelMetricsCalculator:
                           "TMK","UNM","AIZ","LNC","L","BRK.B","LUK","ALL","AIG","CB","CINF","HIG","PGR","TRV","XL","BBT","CFG",
                           "FITB","HBAN","KEY","MTB","PNC","RF","STI","ZION","RE","PBCT","ALXN","AMGN","BIIB","CELG","GILD",
                           "INCY","REGN","VRTX","ABC","BMY","CAH","ESRX","HSIC","MCK","WAT","ABT","A","BCR","BAX","BDX","BSX",
-                          "DHR","EW","HOLX","IDXX","ISRG","JNJ","MDT","PKI","RMD","SYK","TMO","VAR","ZBH","DVA","HCA","UHS",
+                          "DHR","EW","HOLX","IDXX","JNJ","MDT","PKI","RMD","SYK","TMO","VAR","ZBH","DVA","HCA","UHS",
                           "EVHC","LH","DGX","ALGN","COO","XRAY","PDCO","CERN","ILMN","MTD","AET","ANTM","CNC","CI","HUM","UNH",
                           "ABBV","AGN","LLY","MRK","MYL","PRGO","PFE","ZTS","ARNC","BA","GD","LLL","LMT","NOC","RTN","COL",
                           "TXT","TDG","UTX","DE","CHRW","EXPD","FDX","UPS","ALK","AAL","DAL","LUV","UAL","ALLE","AOS","FAST",
@@ -58,11 +58,14 @@ class ModelMetricsCalculator:
         # get the actual values
         dc = DataBuilder()
         actual_data = dc.get_price_diff_data(start_date, end_date)
+	
+	for i, stock in enumerate(all_stock_list):
+            print str(stock) + " Predictions : " + str(stock_predictions[stock]) + ", Actual : " + str(actual_data[stock])
 
         #calculate the mean squared error
-        error = [stock_predictions[stock]-actual_data[stock] for stock in all_stock_list]
+        error = [stock_predictions[stock]-actual_data[stock] if ((stock_predictions[stock]>0 and actual_data[stock]<0) or (stock_predictions[stock]<0 and actual_data[stock]>0)) else 0 for stock in all_stock_list]
         mean_squared_error = sum(map(lambda x:x*x,error))/(len(error))
 
         return mean_squared_error
 
-print "Mean Squared Error" + str(ModelMetricsCalculator.calculateMeanSquaredError(datetime.date(2017, 8, 30),30))
+print "Mean Squared Error" + str(ModelMetricsCalculator.calculateMeanSquaredError(datetime.date(2017, 9, 1),30))
