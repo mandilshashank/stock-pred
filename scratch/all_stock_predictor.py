@@ -1,4 +1,4 @@
-import urllib2
+from urllib.request import urlopen
 import json
 import datetime
 from random import randint
@@ -70,5 +70,5 @@ if __name__ == '__main__':
     for stock in some_stocks_list:
         stock_data = getStocksData(datetime.date(2017, 10, 5))
         url = "http://e2delivery.com:5000/prediction/{}/5/10/2017/30".format(stock)
-        data = json.loads(urllib2.urlopen(url).read())
-        print stock + ":" + str(data["prediction"]) + ":" + str(stock_data[stock])
+        data = json.loads(urlopen(url).read())
+        print(stock + ":" + str(data["prediction"]) + ":" + str(stock_data[stock]))

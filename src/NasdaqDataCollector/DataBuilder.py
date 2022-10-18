@@ -95,7 +95,7 @@ class DataBuilder:
         test_stock_sym = []
 
         while True:
-            print "Iteration Num : " + str(iteration)
+            print("Iteration Num : " + str(iteration))
             if iteration != 1:
                 start_date += datetime.timedelta(days=day_diff)
                 end_date += datetime.timedelta(days=day_diff)
@@ -207,7 +207,7 @@ class DataBuilder:
             test_data.append(test_data_point)
 
 
-        if day_diff=="year":
+        if day_diff == "year":
             scaler = self.load_scaler(scaler_filename)
         else:
             scaler = self.load_scaler(str(day_diff) + scaler_filename)

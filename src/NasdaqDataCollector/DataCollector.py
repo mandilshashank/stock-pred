@@ -1,4 +1,4 @@
-import urllib2
+from urllib.request import urlopen
 import datetime
 import Stock
 
@@ -25,7 +25,7 @@ def getUrl(stock, attributes):
 
 def getStockData(stock):
     url = getUrl(stock, attributes_list)
-    data = urllib2.urlopen(url).read()
+    data = urlopen(url).read()
     todays_date = datetime.date.today()
 
     stock_state = data.split(",")
@@ -66,10 +66,10 @@ if __name__ == '__main__':
                   "EIX","ETR","FE","PPL","PEG","SO","WEC","AES","NRG","AEE","CNP","CMS","DTE","ES","EXC","NEE","NI",
                   "PCG","PNW","SCG","SRE","XEL","AWK"]
 
-    stock_list=["IPG"]
+    stock_list = ["IPG"]
 
     for stock in all_stock_list:
-        print stock
+        print(stock)
         getStockData(stock).save_to_db()
 
 
