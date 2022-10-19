@@ -7,8 +7,8 @@ import pickle
 import os
 import sys
 from os import path
+import DataBuilder
 sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
-from NasdaqDataCollector.DataBuilder import DataBuilder
 
 
 class StockDecisionTree:

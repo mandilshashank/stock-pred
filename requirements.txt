@@ -5,3 +5,4 @@ sklearn~=0.0
 numpy
 scipy
 scikit-learn~=1.1.2
+certifi~=2022.9.24
