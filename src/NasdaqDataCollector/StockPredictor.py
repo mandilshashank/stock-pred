@@ -1,11 +1,11 @@
 import datetime
+from functools import reduce
+
 from DecisionTreeModel import StockDecisionTree
 from NeuralNetworkModel import NeuralNetworkModel
 from RandomForestModel import RandomForestModel
 from GBDTModel import GBDTModel
 from DataBuilder import DataBuilder
-import pickle
-import os
 
 class StockPredictor:
     @staticmethod

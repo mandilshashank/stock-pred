@@ -6,7 +6,7 @@ import datetime
 import sys
 from os import path
 sys.path.append( path.dirname( path.dirname( path.abspath(__file__) ) ) )
-from NasdaqDataCollector.DataBuilder import DataBuilder
+import DataBuilder
 import json
 
 class ModelRunner:

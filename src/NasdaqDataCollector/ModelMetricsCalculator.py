@@ -4,7 +4,7 @@ from NeuralNetworkModel import NeuralNetworkModel
 from RandomForestModel import RandomForestModel
 from GBDTModel import GBDTModel
 from DataBuilder import DataBuilder
-from NasdaqDataCollector.StockPredictor import StockPredictor
+import StockPredictor
 
 ######
 # This class calculates the predictions for the model over a period of 7 days and 30 days for all the stocks
@@ -51,7 +51,7 @@ class ModelMetricsCalculator:
         # get the predictions for the stocks
         stock_predictions = {}
         for i, stock in enumerate(all_stock_list):
-            print i
+            print(i)
             stock_predictions[stock] = StockPredictor.predict_stock2(stock, start_date, predict_range)
 
         end_date = start_date + datetime.timedelta(days=predict_range)
@@ -60,7 +60,7 @@ class ModelMetricsCalculator:
         actual_data = dc.get_price_diff_data(start_date, end_date)
 	
 	for i, stock in enumerate(all_stock_list):
-            print str(stock) + " Predictions : " + str(stock_predictions[stock]) + ", Actual : " + str(actual_data[stock])
+            print(str(stock) + " Predictions : " + str(stock_predictions[stock]) + ", Actual : " + str(actual_data[stock]))
 
         #calculate the mean squared error
         error = [stock_predictions[stock]-actual_data[stock] if ((stock_predictions[stock]>0 and actual_data[stock]<0) or (stock_predictions[stock]<0 and actual_data[stock]>0)) else 0 for stock in all_stock_list]
@@ -68,4 +68,4 @@ class ModelMetricsCalculator:
 
         return mean_squared_error
 
-print "Mean Squared Error" + str(ModelMetricsCalculator.calculateMeanSquaredError(datetime.date(2017, 9, 1),30))
+print("Mean Squared Error" + str(ModelMetricsCalculator.calculateMeanSquaredError(datetime.date(2017, 9, 1),30)))
