@@ -1,23 +1,25 @@
 import datetime
 from functools import reduce
 
-from DecisionTreeModel import StockDecisionTree
-from NeuralNetworkModel import NeuralNetworkModel
-from RandomForestModel import RandomForestModel
-from GBDTModel import GBDTModel
-from DataBuilder import DataBuilder
+from src.NasdaqDataCollector.DecisionTreeModel import StockDecisionTree
+from src.NasdaqDataCollector.NeuralNetworkModel import NeuralNetworkModel
+from src.NasdaqDataCollector.RandomForestModel import RandomForestModel
+from src.NasdaqDataCollector.GBDTModel import GBDTModel
+from src.NasdaqDataCollector.DataBuilder import DataBuilder
+
 
 class StockPredictor:
     @staticmethod
-    def predict_stock3(stock_sym, start_date = datetime.date(2017, 8, 30), end_date = datetime.date(2017, 9, 6), day_diff=7):
-        prediction_symbol_list = [stock_sym,]
+    def predict_stock3(stock_sym, start_date=datetime.date(2017, 8, 30), end_date=datetime.date(2017, 9, 6),
+                       day_diff=7):
+        prediction_symbol_list = [stock_sym, ]
         pricediff_iteration = []
 
         for prediction_symbol in prediction_symbol_list:
             for x in range(0, 3):
                 dc = DataBuilder()
                 [ts, cl, td, tl, tss] = dc.get_training_and_test_data_sym2(prediction_symbol, start_date,
-                                                                      end_date, day_diff)
+                                                                           end_date, day_diff)
 
                 model1 = NeuralNetworkModel()
                 model1.trainModel(ts, cl)
@@ -36,16 +38,15 @@ class StockPredictor:
                 model4_prediction = model4.predict_symbol(prediction_symbol)
 
                 pricediff_iteration.append((model1_prediction[0] + model2_prediction[0] +
-                                           model3_prediction[0] + model4_prediction[0])/4)
-
+                                            model3_prediction[0] + model4_prediction[0]) / 4)
 
         return reduce(lambda x, y: x + y, pricediff_iteration) / float(len(pricediff_iteration))
 
     @staticmethod
-    def build_models(start_date = datetime.date(2017, 8, 30), end_date = datetime.date(2017, 9, 6), train_range=7):
+    def build_models(start_date=datetime.date(2017, 8, 30), end_date=datetime.date(2017, 9, 6), train_range=7):
         dc = DataBuilder()
         [ts, cl, td, tl, tss] = dc.get_training_and_test_data_sym2("all", start_date,
-                                                              end_date, train_range)
+                                                                   end_date, train_range)
 
         model1 = NeuralNetworkModel()
         model1.trainModel(ts, cl)
@@ -64,7 +65,7 @@ class StockPredictor:
         model4.save_model(train_range=train_range)
 
     @staticmethod
-    def predict_stock2(stock_sym, start_date = datetime.date(2017, 8, 30), predict_range = 7):
+    def predict_stock2(stock_sym, start_date=datetime.date(2017, 8, 30), predict_range=7):
         model1 = NeuralNetworkModel()
         model1.load_model(train_range=predict_range)
         model1_prediction = model1.predict_symbol(stock_sym, start_date, predict_range)
@@ -82,7 +83,4 @@ class StockPredictor:
         model4_prediction = model4.predict_symbol(stock_sym, start_date, predict_range)
 
         return (model1_prediction[0] + model2_prediction[0] +
-                model3_prediction[0] + model4_prediction[0])/4
-
-
-
+                model3_prediction[0] + model4_prediction[0]) / 4

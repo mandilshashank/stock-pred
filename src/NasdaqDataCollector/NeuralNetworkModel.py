@@ -1,4 +1,4 @@
-from DecisionTreeModel import StockDecisionTree
+from src.NasdaqDataCollector.DecisionTreeModel import StockDecisionTree
 from sklearn.neural_network import MLPRegressor
 
 
