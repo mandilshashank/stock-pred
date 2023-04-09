@@ -101,7 +101,7 @@ class DataBuilder:
                 end_date += datetime.timedelta(days=day_diff)
             iteration += 1
 
-            cnx = mysql.connector.connect(user='root', database='stock_data', password='root')
+            cnx = mysql.connector.connect(user='root', database='stock_pred', password='root1234')
             cursor = cnx.cursor()
 
             query = """
