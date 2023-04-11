@@ -23,7 +23,7 @@ class DataBuilder:
         return pickle.load(open(abs_file_path, 'rb'))
 
     def get_training_and_test_data_sym(self, prediction_sym, learn_date):
-        cnx = mysql.connector.connect(user='root', database='stock_data', password='root')
+        cnx = mysql.connector.connect(user='root', database='stock_pred', password='root1234')
         cursor = cnx.cursor()
 
         query = ("SELECT * FROM stocks_snaps where date_snap = '{}'")
@@ -53,7 +53,7 @@ class DataBuilder:
             final_price_per_book = 0 if price_per_book.find('N') > -1 else float(price_per_book)
             final_pe = 0 if pe.find('N') > -1 else float(pe)
             final_peg = 0 if peg.find('N') > -1 else float(peg)
-            final_short_ratio = 0 if short_ratio.find('N') > -1 else float(short_ratio)
+            final_short_ratio = 0 if short_ratio is None else float(short_ratio)
             final_one_yr_target_price = final_previous_close if one_yr_target_price.find('N') > -1 \
                 else float(one_yr_target_price)
 
@@ -176,7 +176,7 @@ class DataBuilder:
         return [scaled_training_samples, class_labels, scaled_test_data, test_labels, test_stock_sym]
 
     def get_symbol_data(self, start_date, symbol, day_diff, scaler_filename="prediction.scaler"):
-        cnx = mysql.connector.connect(user='root', database='stock_data', password='root')
+        cnx = mysql.connector.connect(user='root', database='stock_pred', password='root1234')
         cursor = cnx.cursor()
         query = ("SELECT * FROM stocks_snaps where date_snap = '{}' and symbol='{}'")
         stocks_date = start_date
@@ -197,7 +197,7 @@ class DataBuilder:
             final_price_per_book = 0 if price_per_book.find('N') > -1 else float(price_per_book)
             final_pe = 0 if pe.find('N') > -1 else float(pe)
             final_peg = 0 if peg.find('N') > -1 else float(peg)
-            final_short_ratio = 0 if short_ratio.find('N') > -1 else float(short_ratio)
+            final_short_ratio = 0 if short_ratio is None else float(short_ratio)
             final_one_yr_target_price = final_previous_close if one_yr_target_price.find('N') > -1 \
                 else float(one_yr_target_price)
 

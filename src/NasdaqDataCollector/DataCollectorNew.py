@@ -31,7 +31,7 @@ def getFundamentalUrl(stock):
 
 def getDataUrl(stock):
     return "https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY_ADJUSTED&symbol={}&apikey={}".format(stock,
-                                                                                                            "A5ZQ7ESZOUG7B3TU")
+                                                                                                                "A5ZQ7ESZOUG7B3TU")
 
 
 def getStockData(stock):
@@ -43,7 +43,7 @@ def getStockData(stock):
     data = urlopen(url, context=context).read()
 
     # Get today's date
-    todays_date = '2023-04-06'  # 'datetime.date.today()
+    todays_date = '2023-04-10'  # 'datetime.date.today()
 
     # Convert the data to json dict
     stock_data = json.loads(data.decode('utf-8'))
@@ -68,12 +68,14 @@ def getStockData(stock):
                             f2_wk_high, f2_wk_low, eps, book_value, price_per_sales, price_per_book, pe, peg,
                             short_ratio)
 
+
 def extract_stock_state(stock_state, key):
     try:
         return stock_state[key]
     except:
         print(stock_state)
         return 'NAN'
+
 
 if __name__ == '__main__':
     all_stock_list = ["OMC", "FL", "GPS", "LB", "ROST", "TJX", "COH", "HBI", "KORS", "NKE", "RL", "PVH", "TIF",
@@ -140,8 +142,8 @@ if __name__ == '__main__':
                       "EXC", "NEE", "NI",
                       "PCG", "PNW", "SCG", "SRE", "XEL", "AWK"]
 
-    top_30 = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'FB', 'BRK.A', 'TSLA', 'JPM', 'JNJ', 'V', 'PG', 'UNH', 'NVDA', 'HD',
-              'MA', 'PYPL', 'BAC', 'DIS', 'GOOG', 'INTC', 'VZ', 'ADBE', 'CSCO', 'KO', 'T', 'PFE', 'WMT', 'ABT', 'MRK',
+    # 'TSLA', 'JPM', 'JNJ', 'V', 'PG', 'UNH', 'NVDA', 'HD', 'MA', 'PYPL', 'BAC', 'DIS',
+    top_30 = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'META', 'GOOG', 'INTC', 'VZ', 'ADBE', 'CSCO', 'KO', 'T', 'PFE', 'WMT', 'ABT', 'MRK',
               'CVX']
 
     for stock in top_30:
