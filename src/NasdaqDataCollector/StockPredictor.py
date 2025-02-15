@@ -58,3 +58,15 @@ class StockPredictor:
             predictions.append(prediction[0])
 
         return sum(predictions) / len(predictions)
+
+    @staticmethod
+    def build_models(start_date=datetime.date(2023, 1, 1), end_date=datetime.date(2025, 1, 1), train_range=7):
+        dc = DataBuilder()
+        [ts, cl, td, tl, tss] = dc.get_training_and_test_data_sym2("all", start_date, end_date, train_range)
+
+        models = [NeuralNetworkModel, GBDTModel, RandomForestModel, StockDecisionTree]
+
+        for model_class in models:
+            model = model_class()
+            model.trainModel(ts, cl)
+            model.save_model(train_range=train_range)
