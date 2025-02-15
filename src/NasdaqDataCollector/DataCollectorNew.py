@@ -43,7 +43,7 @@ def getStockData(stock):
     data = urlopen(url, context=context).read()
 
     # Get today's date
-    todays_date = '2023-04-10'  # 'datetime.date.today()
+    todays_date = '2025-02-14'  # 'datetime.date.today()
 
     # Convert the data to json dict
     stock_data = json.loads(data.decode('utf-8'))
@@ -149,4 +149,4 @@ if __name__ == '__main__':
     for stock in top_30:
         print('Getting data for ' + stock)
         getStockData(stock).save_to_db()
-        time.sleep(60)
+        time.sleep(30)
