@@ -2,3 +2,6 @@
 *.pyc
 *.dot
 *.png
+
+# Ignore the setup_env.sh file
+src/scripts/setup_env.sh
