@@ -5,7 +5,7 @@ import certifi
 import json
 import time
 
-from src.NasdaqDataCollector.StockPolygon import StockStatePolygon
+from src.NasdaqDataPolygonCollector.StockPolygon import StockStatePolygon
 
 
 def get_fundamental_data(ticker):
