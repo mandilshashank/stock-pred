@@ -5,3 +5,8 @@
 
 # Ignore the setup_env.sh file
 src/scripts/setup_env.sh
+
+node_modules/
+dist/
+build/
+.env
