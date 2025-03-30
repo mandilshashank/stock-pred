@@ -135,27 +135,30 @@ def save_model_info_to_db(model_filename, ticker, window_size, mse, rmse, predic
     db_connection.close()
 
 if __name__ == '__main__':
-    ticker = 'AAPL'
+    top_30 = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'META', 'GOOG', 'INTC', 'VZ', 'ADBE', 'CSCO', 'KO', 'T', 'PFE', 'WMT',
+              'ABT', 'MRK', 'CVX']
     window_sizes = [5, 10, 15, 20]
-    prediction_length = '1week'
 
-    best_model, best_window_size, lowest_mse = train_and_evaluate_model(ticker, window_sizes)
-    print(f"Ticker: {ticker}, Best Window Size: {best_window_size}, Lowest Mean Squared Error: {lowest_mse}")
+    for ticker in top_30:
+        prediction_length = '1week'
 
-    # Create the models directory if it doesn't exist
-    models_dir = '../models'
-    os.makedirs(models_dir, exist_ok=True)
+        best_model, best_window_size, lowest_mse = train_and_evaluate_model(ticker, window_sizes)
+        print(f"Ticker: {ticker}, Best Window Size: {best_window_size}, Lowest Mean Squared Error: {lowest_mse}")
 
-    # Save the best model to a file with ticker and window_size in the name
-    model_filename = os.path.join(models_dir, f'best_gbdt_model_{ticker}_window{best_window_size}_{prediction_length}.pkl')
-    joblib.dump(best_model, model_filename)
-    print(f"Best model saved as {model_filename}")
+        # Create the models directory if it doesn't exist
+        models_dir = '../models'
+        os.makedirs(models_dir, exist_ok=True)
 
-    rmse = math.sqrt(lowest_mse)
-    print(f"Ticker: {ticker}, Root Mean Squared Error: {rmse}")
+        # Save the best model to a file with ticker and window_size in the name
+        model_filename = os.path.join(models_dir, f'best_gbdt_model_{ticker}_window{best_window_size}_{prediction_length}.pkl')
+        joblib.dump(best_model, model_filename)
+        print(f"Best model saved as {model_filename}")
 
-    # Call the function to ensure the table is created
-    create_model_info_table_if_not_exists()
+        rmse = math.sqrt(lowest_mse)
+        print(f"Ticker: {ticker}, Root Mean Squared Error: {rmse}")
 
-    # Save model information to the database
-    save_model_info_to_db(model_filename, ticker, best_window_size, lowest_mse, rmse, prediction_length)
+        # Call the function to ensure the table is created
+        create_model_info_table_if_not_exists()
+
+        # Save model information to the database
+        save_model_info_to_db(model_filename, ticker, best_window_size, lowest_mse, rmse, prediction_length)
