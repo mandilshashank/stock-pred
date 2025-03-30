@@ -9,7 +9,7 @@ import mysql.connector
 def get_previous_year_stock_data(ticker):
     api_key = os.getenv("POLYGON_API_KEY")
     end_date = datetime.now()
-    start_date = end_date - timedelta(days=365)
+    start_date = end_date - timedelta(days=1825)
     url = f"https://api.polygon.io/v2/aggs/ticker/{ticker}/range/1/day/{start_date.strftime('%Y-%m-%d')}/{end_date.strftime('%Y-%m-%d')}?apiKey={api_key}"
 
     try:
