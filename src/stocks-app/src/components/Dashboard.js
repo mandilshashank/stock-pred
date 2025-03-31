@@ -1,16 +1,27 @@
+// src/stocks-app/src/components/Dashboard.js
 import React from 'react';
 import StockPrediction from './StockPrediction';
+import '../styles/Dashboard.css';
 
 const Dashboard = ({ stocks }) => {
   return (
-    <div>
-      <h2>Stock Dashboard</h2>
-      {stocks.map(stock => (
-        <div key={stock.symbol}>
-          <h3>{stock.symbol}</h3>
-          <StockPrediction symbol={stock.symbol} />
-        </div>
-      ))}
+    <div className="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Symbol</th>
+            <th>Prediction</th>
+          </tr>
+        </thead>
+        <tbody>
+          {stocks.map(stock => (
+            <tr key={stock.symbol}>
+              <td>{stock.symbol}</td>
+              <td><StockPrediction symbol={stock.symbol} /></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
