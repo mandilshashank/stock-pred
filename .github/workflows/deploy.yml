@@ -1,0 +1,53 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies and build frontend
+        run: |
+          cd src/stocks-app
+          yarn install
+          yarn build
+
+      - name: Copy frontend to EC2
+        run: |
+          scp -i SHASHANK_MANDIL_AWS.pem -r src/stocks-app/build ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com:~/app/frontend
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install dependencies and run tests
+        run: |
+          cd src/stocks-app
+          pip install -r requirements.txt
+          pytest
+
+      - name: Deploy backend and Flask API to EC2
+        run: |
+          scp -i SHASHANK_MANDIL_AWS.pem -r src/ ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com:~/app
+          ssh -i SHASHANK_MANDIL_AWS.pem ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com << 'EOF'
+            cd ~/app/stocks-app
+            yarn install
+            yarn start
+            pm2 start server.js
+            cd ~/app/StockApi
+            pip install -r requirements.txt
+            pm2 start DataStockPredictApi.py --interpreter python3
+          EOF
