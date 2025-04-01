@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../../styles/Form.css';
+import '../../styles/RegistrationPage.css';
 
-const RegistrationPage = () => {
+const RegistrationPage = ({ history }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -26,31 +26,35 @@ const RegistrationPage = () => {
   if (success) {
     return (
       <div className="form-container">
-        <h2>Registration Successful</h2>
-        <p>Your registration was successful. <a href="/login">Click here to login</a>.</p>
+        <div className="form-box">
+          <h2>Registration Successful</h2>
+          <p>Your registration was successful. <a href="/login">Click here to login</a>.</p>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="form-container">
-      <h2>Register</h2>
-      <form onSubmit={handleRegister}>
-        <div className="form-group">
-          <label>Email:</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        </div>
-        <div className="form-group">
-          <label>Password:</label>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        </div>
-        <div className="form-group">
-          <label>Confirm Password:</label>
-          <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
-        </div>
-        {error && <div className="error-message">{error}</div>}
-        <button type="submit" className="button">Register</button>
-      </form>
+      <div className="form-box">
+        <h2>Register</h2>
+        <form onSubmit={handleRegister}>
+          <div className="form-group">
+            <label>Email:</label>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          </div>
+          <div className="form-group">
+            <label>Password:</label>
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          </div>
+          <div className="form-group">
+            <label>Confirm Password:</label>
+            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+          </div>
+          {error && <div className="error-message">{error}</div>}
+          <button type="submit" className="button">Register</button>
+        </form>
+      </div>
     </div>
   );
 };
