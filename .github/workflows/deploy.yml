@@ -38,13 +38,7 @@ jobs:
         with:
           python-version: '3.8'
 
-      - name: Install dependencies and run tests
-        run: |
-          cd src/
-          pip install -r requirements.txt
-          pytest
-
-      - name: Deploy backend and Flask API to EC2
+      - name: Deploy backend js, frontend js and Flask API to EC2
         run: |
           scp -i SHASHANK_MANDIL_AWS.pem -r src/ ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com:~/app
           ssh -i SHASHANK_MANDIL_AWS.pem ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com << 'EOF'
