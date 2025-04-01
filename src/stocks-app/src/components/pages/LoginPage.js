@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../../styles/Form.css';
 
-const LoginPage = () => {
+const LoginPage = ({ history, onLoginStatusChange }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -10,16 +9,19 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5005/api/login', { email, password });
-      window.location.href = '/';
+      const response = await axios.post('http://localhost:5005/api/login', { email, password });
+      localStorage.setItem('token', response.data.token); // Save the token in localStorage
+      onLoginStatusChange(true);
+      history.push('/dashboard'); // Redirect to the dashboard
     } catch (err) {
-      setError('Login failed');
+      setError('Invalid email or password');
     }
   };
 
   return (
-    <div className="form-container">
+    <div className="login-container">
       <h2>Login</h2>
+      {error && <div className="error-message">{error}</div>}
       <form onSubmit={handleLogin}>
         <div className="form-group">
           <label>Email:</label>
@@ -29,7 +31,6 @@ const LoginPage = () => {
           <label>Password:</label>
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         </div>
-        {error && <div className="error-message">{error}</div>}
         <button type="submit" className="button">Login</button>
       </form>
     </div>

@@ -1,22 +1,22 @@
-// src/stocks-app/server.js
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const mysql = require('mysql2/promise');
-const cors = require('cors'); // Import the cors package
+const cors = require('cors');
+const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 
 const app = express();
 const port = 5005;
+const secretKey = crypto.randomBytes(64).toString('hex');
 
 app.use(bodyParser.json());
-// Use the cors middleware with specific origin and methods
 app.use(cors({
   origin: 'http://localhost:3000',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-// Handle preflight requests
 app.options('*', cors());
 
 const db = mysql.createPool({
@@ -45,12 +45,57 @@ app.post('/api/login', async (req, res) => {
   try {
     const [rows] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
     if (rows.length > 0 && await bcrypt.compare(password, rows[0].password)) {
-      res.status(200).send('Login successful');
+      const token = jwt.sign({ userId: rows[0].id }, secretKey, { expiresIn: '1h' });
+      res.status(200).json({ message: 'Login successful', token });
     } else {
       res.status(400).send('Invalid email or password');
     }
   } catch (error) {
     res.status(400).send('Error logging in');
+  }
+});
+
+app.get('/api/portfolio', async (req, res) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) {
+    return res.status(401).json({ message: 'Authorization header missing' });
+  }
+
+  const token = authHeader.split(' ')[1];
+  try {
+    const decoded = jwt.verify(token, secretKey);
+    const [rows] = await db.query('SELECT * FROM portfolio WHERE user_id = ?', [decoded.userId]);
+    res.status(200).json(rows);
+  } catch (error) {
+    res.status(400).json({ message: 'Error fetching portfolio', error: error.message });
+  }
+});
+
+app.post('/api/portfolio', async (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const { ticker, shares } = req.body;
+  try {
+    const decoded = jwt.verify(token, secretKey);
+    await db.query('INSERT INTO portfolio (user_id, ticker, shares) VALUES (?, ?, ?)', [decoded.userId, ticker, shares]);
+    res.status(201).send('Stock added successfully');
+  } catch (error) {
+    res.status(400).json({ message: 'Error adding stock', error: error.message });
+  }
+});
+
+app.get('/api/user', async (req, res) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) {
+    return res.status(401).json({ message: 'Authorization header missing' });
+  }
+
+  const token = authHeader.split(' ')[1];
+  try {
+    const decoded = jwt.verify(token, secretKey);
+    const [rows] = await db.query('SELECT email FROM users WHERE id = ?', [decoded.userId]);
+    res.status(200).json(rows[0]);
+  } catch (error) {
+    res.status(400).json({ message: 'Error fetching user email', error: error.message });
   }
 });
 

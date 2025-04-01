@@ -1,11 +1,11 @@
-import React from 'react';
-import Header from './common/Header';
-import Footer from './common/Footer';
-import Dashboard from './dashboard/Dashboard';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import RegistrationPage from './pages/RegistrationPage';
 import LoginPage from './pages/LoginPage';
+import Dashboard from './dashboard/Dashboard';
 import PageNotFound from './pages/PageNotFound';
+import Footer from './common/Footer';
+import Header from './common/Header';
 
 const stockData = [
     { symbol: 'AAPL', price: 150.00 },
@@ -18,23 +18,34 @@ const stockData = [
 ];
 
 function App() {
-    return (
-        <Router>
-            <Header />
-            <Switch>
-                <Route path="/register" component={RegistrationPage} />
-                <Route path="/login" component={LoginPage} />
-                <Route exact path="/" render={() => (
-                    <div>
-                        <h1>Welcome to the App</h1>
-                        <Dashboard stocks={stockData} />
-                    </div>
-                )} />
-                <Route component={PageNotFound} />
-            </Switch>
-            <Footer />
-        </Router>
-    );
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
+
+  const handleLoginStatusChange = (status) => {
+    setIsLoggedIn(status);
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
+  }, []);
+
+  return (
+    <Router>
+      <Header isLoggedIn={isLoggedIn} onLoginStatusChange={handleLoginStatusChange} />
+      <Switch>
+        <Route path="/register" component={RegistrationPage} />
+        <Route path="/login" render={(props) => <LoginPage {...props} onLoginStatusChange={handleLoginStatusChange} />} />
+        <Route path="/dashboard" render={() => <Dashboard stocks={stockData} />} />
+        <Route exact path="/" render={() => (
+          <div>
+            <Dashboard stocks={stockData} />
+          </div>
+        )} />
+        <Route component={PageNotFound} />
+      </Switch>
+      <Footer />
+    </Router>
+  );
 }
 
 export default App;
