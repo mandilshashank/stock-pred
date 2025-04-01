@@ -22,7 +22,7 @@ jobs:
         run: |
           cd src/stocks-app
           yarn install
-          yarn build
+          CI=false yarn build
 
       - name: Copy frontend to EC2
         run: |
