@@ -1,7 +1,11 @@
 import React from 'react';
-import Header from './Header';
-import Footer from './Footer';
-import Dashboard from './Dashboard';
+import Header from './common/Header';
+import Footer from './common/Footer';
+import Dashboard from './dashboard/Dashboard';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import RegistrationPage from './pages/RegistrationPage';
+import LoginPage from './pages/LoginPage';
+import PageNotFound from './pages/PageNotFound';
 
 const stockData = [
     { symbol: 'AAPL', price: 150.00 },
@@ -15,12 +19,21 @@ const stockData = [
 
 function App() {
     return (
-        <div>
+        <Router>
             <Header />
-            <h1>Welcome to the App</h1>
-            <Dashboard stocks={stockData} />
+            <Switch>
+                <Route path="/register" component={RegistrationPage} />
+                <Route path="/login" component={LoginPage} />
+                <Route exact path="/" render={() => (
+                    <div>
+                        <h1>Welcome to the App</h1>
+                        <Dashboard stocks={stockData} />
+                    </div>
+                )} />
+                <Route component={PageNotFound} />
+            </Switch>
             <Footer />
-        </div>
+        </Router>
     );
 }
 

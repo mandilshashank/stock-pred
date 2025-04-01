@@ -1,7 +1,7 @@
 // src/stocks-app/src/components/Dashboard.js
 import React from 'react';
-import StockPrediction from './StockPrediction';
-import '../styles/Dashboard.css';
+import StockPrediction from '../StockPrediction';
+import '../../styles/Dashboard.css';
 
 const Dashboard = ({ stocks }) => {
   return (
