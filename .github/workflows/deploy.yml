@@ -42,11 +42,10 @@ jobs:
         run: |
           scp -i SHASHANK_MANDIL_AWS.pem -r src/ ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com:~/app
           ssh -i SHASHANK_MANDIL_AWS.pem ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com << 'EOF'
-            cd ~/app/stocks-app
+            cd ~/app/src/stocks-app
             yarn install
             yarn start
             pm2 start server.js
-            cd ~/app/StockApi
-            pip install -r requirements.txt
+            cd ~/app/src/StockApi
             pm2 start DataStockPredictApi.py --interpreter python3
           EOF
