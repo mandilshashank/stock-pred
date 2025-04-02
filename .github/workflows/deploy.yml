@@ -43,9 +43,17 @@ jobs:
           scp -i SHASHANK_MANDIL_AWS.pem -r src/ ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com:~/app
           ssh -i SHASHANK_MANDIL_AWS.pem ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com << 'EOF'
             cd ~/app/src/stocks-app
-            yarn install
-            yarn start
-            pm2 start server.js
+            sudo yum update -y
+            curl -sL https://rpm.nodesource.com/setup_16.x | sudo -E bash -
+            sudo yum install -y nodejs
+            sudo npm install -g yarn pm2
+            cd ~/app/src/stocks-app
+            rm -rf node_modules && yarn install
+            sudo yarn start:prod
+            sudo pm2 start server.js
+            cd ~/app/src
+            sudo yum install -y python3-pip
+            sudo pip3 install -r requirements.txt
             cd ~/app/src/StockApi
-            pm2 start DataStockPredictApi.py --interpreter python3
+            sudo pm2 start DataStockPredictApi.py --interpreter python3
           EOF
