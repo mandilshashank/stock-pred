@@ -40,6 +40,10 @@ jobs:
 
       - name: Deploy backend js, frontend js and Flask API to EC2
         run: |
+          ssh -i SHASHANK_MANDIL_AWS.pem ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com << 'EOF'
+            cd ~/app/src/stocks-app
+            sudo rm -rf node_modules
+          EOF
           rsync -avz --exclude 'stocks-app/node_modules' --exclude 'stocks-app/.cache' -e "ssh -i SHASHANK_MANDIL_AWS.pem" src/ ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com:~/app
           ssh -i SHASHANK_MANDIL_AWS.pem ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com << 'EOF'
             cd ~/app/src/stocks-app
