@@ -24,6 +24,14 @@ jobs:
           yarn install
           CI=false yarn build
 
+      - name: Get the PEM file ready
+        env:
+          PEM_FILE: ${{ secrets.SHASHANK_MANDIL_AWS }}
+        run: |
+          echo "${{ secrets.SHASHANK_MANDIL_AWS }}" > SHASHANK_MANDIL_AWS.pem
+          chmod 600 SHASHANK_MANDIL_AWS.pem
+          echo "PEM file created and permissions set."
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
