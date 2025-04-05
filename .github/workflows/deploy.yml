@@ -24,15 +24,6 @@ jobs:
           yarn install
           CI=false yarn build
 
-      - name: Copy frontend to EC2
-        env:
-          PEM_FILE: ${{ secrets.SHASHANK_MANDIL_AWS }}
-        run: |
-          echo "${{ secrets.SHASHANK_MANDIL_AWS }}" > SHASHANK_MANDIL_AWS.pem
-          chmod 600 SHASHANK_MANDIL_AWS.pem
-          ssh -i SHASHANK_MANDIL_AWS.pem -o StrictHostKeyChecking=no ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com "mkdir -p ~/app/frontend"
-          scp -i SHASHANK_MANDIL_AWS.pem -o StrictHostKeyChecking=no -r src/stocks-app/build ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com:~/app/frontend
-
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
