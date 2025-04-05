@@ -39,9 +39,9 @@ jobs:
 
       - name: Deploy backend js, frontend js and Flask API to EC2
         run: |
-          ssh -o StrictHostKeyChecking=no -i SHASHANK_MANDIL_AWS.pem ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com 'cd ~/app/src/stocks-app && sudo rm -rf node_modules'
           rsync -avz --exclude 'stocks-app/node_modules' --exclude 'stocks-app/.cache' -e "ssh -o StrictHostKeyChecking=no -i SHASHANK_MANDIL_AWS.pem" src/ ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com:~/app
           ssh -o StrictHostKeyChecking=no -i SHASHANK_MANDIL_AWS.pem ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com << 'EOF'
+            set -e
             cd ~/app/src/stocks-app
             sudo yum update -y
             curl -sL https://rpm.nodesource.com/setup_16.x | sudo -E bash -
