@@ -23,7 +23,7 @@ class DataBuilder:
         return pickle.load(open(abs_file_path, 'rb'))
 
     def get_training_and_test_data_sym(self, prediction_sym, learn_date):
-        cnx = mysql.connector.connect(user='root', database='stock_pred', password='root1234')
+        cnx = mysql.connector.connect(user='root', database='stock_pred', password='StockMarket1234!')
         cursor = cnx.cursor()
 
         query = ("SELECT * FROM stocks_snaps where date_snap = '{}'")
@@ -101,7 +101,7 @@ class DataBuilder:
                 end_date += datetime.timedelta(days=day_diff)
             iteration += 1
 
-            cnx = mysql.connector.connect(user='root', database='stock_pred', password='root1234')
+            cnx = mysql.connector.connect(user='root', database='stock_pred', password='StockMarket1234!')
             cursor = cnx.cursor()
 
             query = """
@@ -176,7 +176,7 @@ class DataBuilder:
         return [scaled_training_samples, class_labels, scaled_test_data, test_labels, test_stock_sym]
 
     def get_symbol_data(self, start_date, symbol, day_diff, scaler_filename="prediction.scaler"):
-        cnx = mysql.connector.connect(user='root', database='stock_pred', password='root1234')
+        cnx = mysql.connector.connect(user='root', database='stock_pred', password='StockMarket1234!')
         cursor = cnx.cursor()
         query = ("SELECT * FROM stocks_snaps where date_snap = '{}' and symbol='{}'")
         stocks_date = start_date

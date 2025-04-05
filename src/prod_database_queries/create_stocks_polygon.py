@@ -6,7 +6,7 @@ from mysql.connector import errorcode
 # Database configuration
 config = {
     'user': 'root',
-    'password': 'root1234',
+    'password': 'StockMarket1234!',
     'host': '127.0.0.1'
 }
 

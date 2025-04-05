@@ -35,7 +35,7 @@ def get_previous_year_stock_data_from_db(ticker):
         host="localhost",
         user='root',
         database='stock_pred',
-        password='root1234'
+        password='StockMarket1234!'
     )
     cursor = db_connection.cursor(dictionary=True)
 
@@ -86,7 +86,7 @@ def create_model_info_table_if_not_exists():
         host="localhost",
         user='root',
         database='stock_pred',
-        password='root1234'
+        password='StockMarket1234!'
     )
     cursor = db_connection.cursor()
 
@@ -120,7 +120,7 @@ def save_model_info_to_db(model_filename, ticker, window_size, mse, rmse, predic
         host="localhost",
         user='root',
         database='stock_pred',
-        password='root1234'
+        password='StockMarket1234!'
     )
     cursor = db_connection.cursor()
 

@@ -22,7 +22,7 @@ app.options('*', cors());
 const db = mysql.createPool({
   host: 'localhost',
   user: 'root',
-  password: 'root1234',
+  password: 'StockMarket1234!',
   database: 'stock_pred'
 });
 

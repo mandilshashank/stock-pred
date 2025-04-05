@@ -32,7 +32,7 @@ class StockState:
         self.short_ratio = short_ratio
 
     def save_to_db(self):
-        cnx = mysql.connector.connect(user='root', database='stock_pred', password='root1234')
+        cnx = mysql.connector.connect(user='root', database='stock_pred', password='StockMarket1234!')
         cursor = cnx.cursor()
 
         today = datetime.now().date()

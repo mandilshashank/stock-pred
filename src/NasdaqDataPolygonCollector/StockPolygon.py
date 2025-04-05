@@ -44,7 +44,7 @@ class StockStatePolygon:
                                           previous_day_low, previous_day_close, previous_day_volume, previous_day_vw)
 
     def save_to_db(self):
-        cnx = mysql.connector.connect(user='root', database='stock_pred', password='root1234')
+        cnx = mysql.connector.connect(user='root', database='stock_pred', password='StockMarket1234!')
         cursor = cnx.cursor()
 
         add_stock_polygon = ("INSERT INTO stocks_polygon "

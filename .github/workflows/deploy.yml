@@ -48,7 +48,7 @@ jobs:
             sudo yum install -y nodejs
             sudo npm install -g yarn pm2
             cd ~/app/src/stocks-app
-            rm -rf node_modules && yarn install
+            sudo rm -rf node_modules && yarn install
             sudo yarn start:prod
             sudo pm2 start server.js
             cd ~/app/src

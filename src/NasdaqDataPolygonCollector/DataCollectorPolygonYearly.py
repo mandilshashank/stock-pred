@@ -27,7 +27,7 @@ def save_to_db(data, ticker):
         host="localhost",
         user='root',
         database='stock_pred',
-        password='root1234'
+        password='StockMarket1234!'
     )
     cursor = db_connection.cursor()
 
