@@ -48,8 +48,7 @@ jobs:
             sudo yum install -y nodejs
             sudo npm install -g yarn pm2
             yarn install
-            sudo yarn start:prod
-            sudo pm2 start server.js
+            sudo pm2 start yarn --name "stocks-app" -- start:prod
             cd ~/app/src
             sudo yum install -y python3-pip
             sudo pip3 install -r requirements.txt
