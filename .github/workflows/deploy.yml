@@ -37,9 +37,25 @@ jobs:
         with:
           python-version: '3.8'
 
-      - name: Deploy backend js, frontend js and Flask API to EC2
+      - name: Check EC2 connection and deploy
         run: |
+          # Check if the EC2 instance is reachable
+          if ! ping -c 1 ec2-54-175-107-161.compute-1.amazonaws.com &> /dev/null
+          then
+            echo "Error: Cannot reach EC2 instance. Please check if it's running and accessible."
+            exit 1
+          fi
+
+          # Try to establish an SSH connection
+          if ! ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i SHASHANK_MANDIL_AWS.pem ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com exit
+          then
+            echo "Error: Cannot establish SSH connection. Please check your security group settings and the instance's status."
+            exit 1
+          fi
+
+          # If we've made it here, we can proceed with the deployment
           rsync -avz --exclude 'stocks-app/node_modules' --exclude 'stocks-app/.cache' -e "ssh -o StrictHostKeyChecking=no -i SHASHANK_MANDIL_AWS.pem" src/ ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com:~/app
+
           ssh -o StrictHostKeyChecking=no -i SHASHANK_MANDIL_AWS.pem ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com << 'EOF'
             set -e
             cd ~/app/src/stocks-app
@@ -48,10 +64,30 @@ jobs:
             sudo yum install -y nodejs
             sudo npm install -g yarn pm2
             yarn install
-            sudo pm2 start yarn --name "stocks-app" -- start:prod
+            pm2 stop stocks-app || true
+            pm2 start yarn --name "stocks-app" -- start:prod
             cd ~/app/src
             sudo yum install -y python3-pip
-            sudo pip3 install -r requirements.txt
+            pip3 install --user -r requirements.txt
             cd ~/app/src/StockApi
-            sudo pm2 start DataStockPredictApi.py --interpreter python3
+            pm2 stop DataStockPredictApi || true
+            pm2 start DataStockPredictApi.py --name "stock-api" --interpreter python3 --max-memory-restart 200M
+            pm2 save
+
+            # Wait for a moment to allow processes to start
+            sleep 10
+
+            # Check process status
+            echo "PM2 process list:"
+            pm2 list
+
+            echo "Checking stocks-app logs:"
+            pm2 logs stocks-app --lines 20
+
+            echo "Checking stock-api logs:"
+            pm2 logs stock-api --lines 20
+
+            # Monitor for a short period
+            echo "Monitoring processes for 1 minute:"
+            pm2 monit --raw --lines 60
           EOF
