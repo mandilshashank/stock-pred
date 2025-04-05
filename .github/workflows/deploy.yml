@@ -39,13 +39,6 @@ jobs:
 
       - name: Check EC2 connection and deploy
         run: |
-          # Check if the EC2 instance is reachable
-          if ! ping -c 1 ec2-54-175-107-161.compute-1.amazonaws.com &> /dev/null
-          then
-            echo "Error: Cannot reach EC2 instance. Please check if it's running and accessible."
-            exit 1
-          fi
-
           # Try to establish an SSH connection
           if ! ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -i SHASHANK_MANDIL_AWS.pem ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com exit
           then
