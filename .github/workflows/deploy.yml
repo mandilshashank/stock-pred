@@ -57,15 +57,15 @@ jobs:
             sudo yum install -y nodejs
             sudo npm install -g yarn pm2
             yarn install
-            pm2 stop stocks-app || true
-            pm2 start yarn --name "stocks-app" -- start:prod
+            sudo pm2 stop stocks-app || true
+            sudo pm2 start yarn --name "stocks-app" -- start:prod
             cd ~/app/src
             sudo yum install -y python3-pip
-            pip3 install --user -r requirements.txt
+            sudo pip3 install --user -r requirements.txt
             cd ~/app/src/StockApi
-            pm2 stop DataStockPredictApi || true
-            pm2 start DataStockPredictApi.py --name "stock-api" --interpreter python3 --max-memory-restart 200M
-            pm2 save
+            sudo pm2 stop DataStockPredictApi || true
+            sudo pm2 start DataStockPredictApi.py --name "stock-api" --interpreter python3 --max-memory-restart 200M
+            sudo pm2 save
 
             # Wait for a moment to allow processes to start
             sleep 10
