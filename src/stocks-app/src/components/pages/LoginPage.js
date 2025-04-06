@@ -10,7 +10,10 @@ const LoginPage = ({ history, onLoginStatusChange }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5005/api/login', { email, password });
+      const apiUrl = process.env.NODE_ENV === 'production'
+          ? 'http://ec2-54-175-107-161.compute-1.amazonaws.com:5005/api/login'
+          : 'http://localhost:5005/api/login';
+      const response = await axios.post(apiUrl, { email, password });
       localStorage.setItem('token', response.data.token); // Save the token in localStorage
       onLoginStatusChange(true);
       history.push('/dashboard'); // Redirect to the dashboard
