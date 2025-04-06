@@ -12,7 +12,7 @@ const secretKey = crypto.randomBytes(64).toString('hex');
 
 app.use(bodyParser.json());
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: process.env.NODE_ENV === 'production' ? 'http://ec2-54-175-107-161.compute-1.amazonaws.com:3000' : 'http://localhost:3000',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
