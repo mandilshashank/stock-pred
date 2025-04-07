@@ -53,8 +53,21 @@ const Dashboard = ({ stocks }) => {
     }
   };
 
-  const handleLoginStatusChange = (status) => {
-    setIsLoggedIn(status);
+  const handleDeleteStock = async (ticker) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setError('User not logged in');
+      return;
+    }
+
+    try {
+      await axios.delete(`http://localhost:5005/api/portfolio/${ticker}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setPortfolio(portfolio.filter(stock => stock.ticker !== ticker));
+    } catch (err) {
+      setError('Error deleting stock: ' + err.response.data.message);
+    }
   };
 
   return (
@@ -67,6 +80,7 @@ const Dashboard = ({ stocks }) => {
             <tr>
               <th>Ticker</th>
               <th>Shares</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -74,6 +88,9 @@ const Dashboard = ({ stocks }) => {
               <tr key={index}>
                 <td>{stock.ticker}</td>
                 <td>{stock.shares}</td>
+                <td>
+                  <button onClick={() => handleDeleteStock(stock.ticker)}>Delete</button>
+                </td>
               </tr>
             ))}
           </tbody>

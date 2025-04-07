@@ -202,6 +202,23 @@ app.get('/api/user', async (req, res) => {
   }
 });
 
+app.delete('/api/portfolio/:ticker', async (req, res) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) {
+    return res.status(401).json({ message: 'Authorization header missing' });
+  }
+
+  const token = authHeader.split(' ')[1];
+  const { ticker } = req.params;
+  try {
+    const decoded = jwt.verify(token, secretKey);
+    await db.query('DELETE FROM portfolio WHERE user_id = ? AND ticker = ?', [decoded.userId, ticker]);
+    res.status(200).json({ message: 'Stock deleted successfully' });
+  } catch (error) {
+    res.status(400).json({ message: 'Error deleting stock', error: error.message });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
