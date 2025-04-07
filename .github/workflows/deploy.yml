@@ -45,6 +45,9 @@ jobs:
             echo "Error: Cannot establish SSH connection. Please check your security group settings and the instance's status."
             exit 1
           fi
+          
+          # Create target directory if it doesn't exist
+          ssh -o StrictHostKeyChecking=no -i SHASHANK_MANDIL_AWS.pem ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com "mkdir -p ~/app/src"
 
           # If we've made it here, we can proceed with the deployment
           rsync -avz --exclude='node_modules' --exclude='.cache' -e "ssh -i SHASHANK_MANDIL_AWS.pem" src/ ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com:~/app/src
