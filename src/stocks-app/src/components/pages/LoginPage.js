@@ -1,4 +1,6 @@
+// src/stocks-app/src/components/pages/LoginPage.js
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../../styles/LoginPage.css';
 
@@ -38,6 +40,9 @@ const LoginPage = ({ history, onLoginStatusChange }) => {
           </div>
           <button type="submit" className="button">Login</button>
         </form>
+        <div className="forgot-password-link">
+          <Link to="/forgot-password">Forgot Password?</Link>
+        </div>
       </div>
     </div>
   );
