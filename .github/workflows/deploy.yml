@@ -47,7 +47,7 @@ jobs:
           fi
 
           # If we've made it here, we can proceed with the deployment
-          sudo scp -i SHASHANK_MANDIL_AWS.pem -r $(find src/ \( -name node_modules -o -name .cache -type d \) -prune -o -print) ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com:~/app/src/stocks-app
+          scp -i SHASHANK_MANDIL_AWS.pem -r $(find src/ \( -name node_modules -o -name .cache -type d \) -prune -o -print) ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com:~/app/src/stocks-app
 
           ssh -o StrictHostKeyChecking=no -i SHASHANK_MANDIL_AWS.pem ec2-user@ec2-54-175-107-161.compute-1.amazonaws.com << 'EOF'
             set -e
