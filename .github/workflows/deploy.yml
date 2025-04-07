@@ -86,12 +86,8 @@ jobs:
             sudo pm2 list
 
             echo "Checking stocks-app logs:"
-            sudo pm2 logs stocks-app --lines 20
+            sudo pm2 logs stocks-app --lines 20 --nostream
 
             echo "Checking stock-api logs:"
-            sudo pm2 logs stock-api --lines 20
-
-            # Monitor for a short period
-            echo "Monitoring processes for 1 minute:"
-            sudo pm2 monit --raw --lines 60
+            sudo pm2 logs stock-api --lines 20 --nostream
           EOF
