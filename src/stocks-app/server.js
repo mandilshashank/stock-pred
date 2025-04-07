@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
@@ -5,6 +7,8 @@ const mysql = require('mysql2/promise');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const nodemailer = require('nodemailer');
+
 
 const app = express();
 const port = 5005;
@@ -48,12 +52,31 @@ app.post('/api/register', async (req, res) => {
   if (!email || !password) {
     return res.status(400).json({ message: 'Email and password are required' });
   }
-  const hashedPassword = await bcrypt.hash(password, 10);
+
   try {
-    const [rows] = await db.query('INSERT INTO users (email, password) VALUES (?, ?)', [email, hashedPassword]);
+    const [emailRows] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
+    if (emailRows.length > 0) {
+      return res.status(400).json({ message: 'This email address is already registered. Please log in or use the "Forgot Password" option.' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await db.query('INSERT INTO users (email, password) VALUES (?, ?)', [email, hashedPassword]);
     res.status(201).send('User registered successfully');
   } catch (error) {
-    res.status(400).json({ message: 'Error registering user', error: error.message });
+    res.status(500).json({ message: 'Error registering user', error: error.message });
+  }
+});
+
+app.post('/api/validate-email', async (req, res) => {
+  const { email } = req.body;
+  try {
+    const [rows] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
+    if (rows.length > 0) {
+      return res.status(400).json({ message: 'This email address is already registered. Please log in or use the "Forgot Password" option.' });
+    }
+    res.status(200).send('Email is available');
+  } catch (error) {
+    res.status(500).json({ message: 'Error validating email', error: error.message });
   }
 });
 
@@ -69,6 +92,69 @@ app.post('/api/login', async (req, res) => {
     }
   } catch (error) {
     res.status(400).send('Error logging in');
+  }
+});
+
+app.post('/api/forgot-password', async (req, res) => {
+  const { email } = req.body;
+  try {
+    const [user] = await db.query('SELECT * FROM users WHERE email = ?', [email]);
+    if (user.length === 0) {
+      return res.status(400).json({ message: 'No user found with this email address.' });
+    }
+    const token = crypto.randomBytes(20).toString('hex');
+    const tokenExpiration = Date.now() + 3600000; // 1 hour
+
+    await db.query('UPDATE users SET resetPasswordToken = ?, resetPasswordExpires = ? WHERE email = ?', [token, tokenExpiration, email]);
+
+    const transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+        user: 'mandil.shashank@gmail.com',
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+
+    const resetUrl = process.env.NODE_ENV === 'production'
+          ? `http://ec2-54-175-107-161.compute-1.amazonaws.com/reset-password/${token}`
+          : `http://localhost:3000/reset-password/${token}`;
+
+    const mailOptions = {
+          to: email,
+          from: 'passwordreset@stock-app.com',
+          subject: 'Password Reset',
+          text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n
+                 Please click on the following link, or paste this into your browser to complete the process:\n\n
+                 ${resetUrl}\n\n
+                 If you did not request this, please ignore this email and your password will remain unchanged.\n`,
+        };
+
+    await transporter.sendMail(mailOptions);
+    res.status(200).json({ message: 'Password reset email sent.' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error processing request', error: error.message });
+  }
+});
+
+app.post('/api/reset-password', async (req, res) => {
+  const { token, newPassword } = req.body;
+
+  if (!token || !newPassword) {
+      return res.status(400).json({ message: 'Token and new password are required' });
+  }
+
+  try {
+    const [user] = await db.query('SELECT * FROM users WHERE resetPasswordToken = ? AND resetPasswordExpires > ?', [token, Date.now()]);
+    if (user.length === 0) {
+      return res.status(400).json({ message: 'Password reset token is invalid or has expired.' });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await db.query('UPDATE users SET password = ?, resetPasswordToken = NULL, resetPasswordExpires = NULL WHERE email = ?', [hashedPassword, user[0].email]);
+
+    res.status(200).json({ message: 'Password has been reset.' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error resetting password', error: error.message });
   }
 });
 

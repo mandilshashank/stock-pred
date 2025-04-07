@@ -24,3 +24,19 @@ nav {
 .button:hover {
   background-color: #21a1f1;
 }
+
+.error-message {
+  color: red;
+  margin-left: 10px;
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.success-message {
+  color: green;
+  margin-left: 10px;
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+}

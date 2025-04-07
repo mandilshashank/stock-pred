@@ -6,6 +6,8 @@ import Dashboard from './dashboard/Dashboard';
 import PageNotFound from './pages/PageNotFound';
 import Footer from './common/Footer';
 import Header from './common/Header';
+import ResetPasswordPage from './pages/ResetPasswordPage';
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
 
 const stockData = [
     { symbol: 'AAPL', price: 150.00 },
@@ -35,6 +37,8 @@ function App() {
       <Switch>
         <Route path="/register" component={RegistrationPage} />
         <Route path="/login" render={(props) => <LoginPage {...props} onLoginStatusChange={handleLoginStatusChange} />} />
+        <Route path="/reset-password/:token" component={ResetPasswordPage} />
+        <Route path="/forgot-password" component={ForgotPasswordPage} />
         <Route path="/dashboard" render={() => <Dashboard stocks={stockData} />} />
         <Route exact path="/" render={() => (
           <div>
