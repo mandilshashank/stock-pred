@@ -1,6 +1,7 @@
-from flask import Flask
+from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 from flask_cors import CORS
+import robin_stocks.robinhood as r
 import sys
 import os
 
@@ -12,13 +13,32 @@ app = Flask(__name__)
 CORS(app)
 api = Api(app)
 
-
 class DataStockPredict(Resource):
     def get(self, stock_symbol, predict_length):
         predictor = DataModelPredictor(stock_symbol, predict_length)
         prediction, mse, rmse = predictor.predict_tomorrow()
         return {'prediction': prediction, 'mse': mse, 'rmse': rmse}
 
+    @app.route('/authenticate', methods=['POST'])
+    def authenticate():
+        data = request.json
+        username = data.get('username')
+        password = data.get('password')
+        if not username or not password:
+            return jsonify({'error': 'Username and password are required'}), 400
+        try:
+            login = r.login(username, password)
+            return jsonify({'message': 'Authenticated successfully'}), 200
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
+
+    @app.route('/holdings', methods=['GET'])
+    def holdings():
+        try:
+            holdings = r.account.build_holdings()
+            return jsonify(holdings), 200
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
 
 api.add_resource(DataStockPredict, '/datapredict/<stock_symbol>/<predict_length>')
 

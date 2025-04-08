@@ -70,9 +70,34 @@ const Dashboard = ({ stocks }) => {
     }
   };
 
+  const importPortfolio = async () => {
+      const username = prompt('Enter your Robinhood username:');
+      const password = prompt('Enter your Robinhood password:');
+      if (!username || !password) {
+        alert('Username and password are required');
+        return;
+      }
+
+      try {
+        await axios.post('/api/import-robinhood', { username, password }, {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        });
+        alert('Portfolio imported successfully');
+        // Refresh portfolio data
+        const response = await axios.get('/api/portfolio', {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        });
+        setPortfolio(response.data);
+      } catch (error) {
+        console.error('Error importing portfolio:', error);
+        alert('Error importing portfolio');
+      }
+    };
+
   return (
     <div>
       <div className="dashboard-container">
+        <button onClick={importPortfolio}>Import Portfolio from Robinhood</button>
         <h2>My Portfolio</h2>
         {error && <div className="error-message">{error}</div>}
         <table>

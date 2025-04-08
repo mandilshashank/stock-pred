@@ -47,6 +47,31 @@ const db = mysql.createPool({
   database: 'stock_pred'
 });
 
+app.post('/api/import-robinhood', async (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    return res.status(400).json({ message: 'Username and password are required' });
+  }
+
+  try {
+    await axios.post('http://localhost:5003/authenticate', { username, password });
+    const response = await axios.get('http://localhost:5003/holdings');
+    const holdings = response.data;
+
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = jwt.verify(token, secretKey);
+
+    for (const [ticker, data] of Object.entries(holdings)) {
+      const shares = data.quantity;
+      await db.query('INSERT INTO portfolio (user_id, ticker, shares) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE shares = shares + VALUES(shares)', [decoded.userId, ticker, shares]);
+    }
+
+    res.status(200).json({ message: 'Holdings imported successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error importing holdings', error: error.message });
+  }
+});
+
 app.post('/api/register', async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
